@@ -55,6 +55,6 @@ class Api::V1::ProfilesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def profile_params
-      params.require(:profile).permit(:profile_id, :name, :nickname, :roommate_number, :prefecture)
+      params.require(:profile).permit(:profile_id, :name, :nickname, :roommate_number, :prefecture, :user_id)
     end
 end
