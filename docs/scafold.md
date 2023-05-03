@@ -48,7 +48,7 @@ curl -X PATCH -H "Content-Type: application/json" -d "{\"email\": \"postpatch@gm
 Delete
 curl -X DELETE 10.0.0.11:3000/api/v1/users/7
 
-
+curl -X POST -H "Content-Type: application/json" -d "{\"email\": \"post@gmail.com\",  \"encrypted_password\": \"post\" }" 10.0.0.11:3000/api/v1/users
 
 
 

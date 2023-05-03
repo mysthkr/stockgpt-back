@@ -9,3 +9,5 @@ users.each do |email, group_id, encrypted_password, admin, business|
   User.create(email: email, group_id: group_id, encrypted_password: encrypted_password, 
   admin: admin, business: business)
 end
+
+User.find(4).update(group_id: 1)
