@@ -20,28 +20,30 @@ class Api::V1::UsersController < ApplicationController
   # POST /api/v1/users
   def create
     user = User.new(user_params)
-
-    puts user
-
     if user.save
       render json: user, status: :created, location: api_v1_user_url(user)
     else
-      render json: user.errors, status: :unprocessable_entity
+      render json: user.errors, status: :bad_request
     end
   end
 
   # PATCH/PUT /api/v1/users/1
   def update
-    if @user.update(user_params)
-      render json: @user
+    user = User.find(params[:id])
+
+    if user.update(user_params)
+      render json: user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: user.errors, status: :bad_request
     end
   end
 
   # DELETE /api/v1/users/1
   def destroy
-    @user.destroy
+    user = User.find(params[:id])
+    user.destroy
+
+    render json: { message: 'User successfully deleted.' }
   end
 
   private

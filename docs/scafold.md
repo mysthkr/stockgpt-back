@@ -32,8 +32,26 @@ curl -X POST -H "Content-Type: application/json"  -d '{"email": "postuser@gmail.
 
 curl -X POST -H "Content-Type: application/json"  -d "{"email": "post@gmail.com", "group_id": 5, "encrypted_password": "post", "admin": true, "business": false }" 10.0.0.11:3000/api/v1/users
 
+---User---
+Get
+curl -X GET 10.0.0.11:3000/api/v1/users
 
-OK
+Show
+curl -X GET 10.0.0.11:3000/api/v1/users/6
+
+Create
 curl -X POST -H "Content-Type: application/json" -d "{\"email\": \"post@gmail.com\", \"group_id\": 5, \"encrypted_password\": \"post\", \"admin\": false, \"business\": false }" 10.0.0.11:3000/api/v1/users
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"email\": \"postpatch@gmail.com\", \"group_id\": 5, \"encrypted_password\": \"postpatch\", \"admin\": false, \"business\": false }" 10.0.0.11:3000/api/v1/users/6
+
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/users/7
+
+
+
+
+
+
 
 
