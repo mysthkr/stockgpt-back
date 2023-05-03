@@ -78,4 +78,22 @@ Test not null registration
 curl -X POST -H "Content-Type: application/json" -d "{\"user_id\": 5, \"name\": \"name5\"}" 10.0.0.11:3000/api/v1/profiles
 
 
+###Group
+
+rails g scaffold api/v1/group name:string
+
+Get
+curl -X GET 10.0.0.11:3000/api/v1/groups
+
+Show
+curl -X GET 10.0.0.11:3000/api/v1/groups/1
+
+Create
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"post group 5\"}" 10.0.0.11:3000/api/v1/groups
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"name\": \"editeddddd group 5\"}" 10.0.0.11:3000/api/v1/groups/5
+
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/groups/5
 

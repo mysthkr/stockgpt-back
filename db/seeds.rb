@@ -25,3 +25,14 @@ profiles.each do |user_id,name,nickname,roommate_number,prefecture|
     roommate_number: roommate_number,prefecture: prefecture)
 end
 
+
+groups = [
+  "group one", 
+  "group two", 
+  "group three", 
+  "group four"
+]
+
+groups.each do |name| 
+  Group.create(name: name)
+end
