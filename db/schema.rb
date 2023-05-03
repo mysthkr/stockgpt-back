@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_03_154509) do
+ActiveRecord::Schema.define(version: 2023_05_03_161159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2023_05_03_154509) do
   end
 
   create_table "groups", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -46,14 +46,16 @@ ActiveRecord::Schema.define(version: 2023_05_03_154509) do
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
-    t.bigint "group_id"
     t.string "encrypted_password", null: false
     t.boolean "admin", default: false
     t.boolean "business", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["group_id"], name: "index_users_on_group_id"
   end
 
   add_foreign_key "profiles", "users"
+  add_foreign_key "users", "groups"
 end
