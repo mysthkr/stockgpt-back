@@ -74,8 +74,8 @@ Delete
 curl -X DELETE 10.0.0.11:3000/api/v1/profiles/5
 
 
-
-
+Test not null registration
+curl -X POST -H "Content-Type: application/json" -d "{\"user_id\": 5, \"name\": \"name5\"}" 10.0.0.11:3000/api/v1/profiles
 
 
 

@@ -28,13 +28,14 @@ ActiveRecord::Schema.define(version: 2023_05_03_135014) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "name"
+    t.bigint "user_id", null: false
+    t.string "name", null: false
     t.string "nickname"
-    t.integer "roommate_number"
+    t.integer "roommate_number", default: 1, null: false
     t.string "prefecture"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,4 +49,5 @@ ActiveRecord::Schema.define(version: 2023_05_03_135014) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "profiles", "users"
 end
