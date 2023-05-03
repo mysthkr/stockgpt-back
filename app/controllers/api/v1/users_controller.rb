@@ -57,3 +57,4 @@ class Api::V1::UsersController < ApplicationController
       params.require(:user).permit(:email, :group_id, :encrypted_password, :admin, :business)
     end
 end
+

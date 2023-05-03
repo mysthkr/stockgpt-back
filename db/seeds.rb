@@ -1,3 +1,15 @@
+groups = [
+  "group one", 
+  "group two", 
+  "group three", 
+  "group four"
+]
+
+groups.each do |name| 
+  Group.create(name: name)
+end
+
+
 users = [
   ["testform@gmail.com", 1, "testform", true, true], 
   ["testform2@gmail.com", 2, "testform2", false, true], 
@@ -24,4 +36,5 @@ profiles.each do |user_id,name,nickname,roommate_number,prefecture|
   Profile.create(user_id: user_id,name: name,nickname: nickname,
     roommate_number: roommate_number,prefecture: prefecture)
 end
+
 
