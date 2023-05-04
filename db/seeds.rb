@@ -51,5 +51,15 @@ groceries.each do |item_id, subcategory_id, category_id|
 end
 
 
+products = [
+  [1, 1, 1, 1,"picture_1"], 
+  [2, 2, 2, 2,"picture_2"], 
+  [3, 3, 2, 3,"picture_3"],
+  [1, 1, 1, 1,"picture_1"] 
+]
 
+products.each do |item_id, subcategory_id, category_id,maker_id, picture| 
+  Product.create(item_id: item_id, subcategory_id: subcategory_id, 
+    category_id: category_id,maker_id: maker_id, picture: picture)
+end
 
