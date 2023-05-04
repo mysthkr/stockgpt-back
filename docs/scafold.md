@@ -232,6 +232,5 @@ curl -X PATCH -H "Content-Type: application/json" -d "{\"group_id\": 4,\"criteri
 Delete
 curl -X DELETE 10.0.0.11:3000/api/v1/stock_items/5
 
-
-
-
+null test 
+curl -X POST -H "Content-Type: application/json" -d "{\"group_id\": 4,\"criteria\": 55,\"item_id\": 4,\"alarm_date\": \"2023-04-05\",  \"shop_id\": 4,  \"discarded_at\": \"2022-05-05T05:05:05\"}" 10.0.0.11:3000/api/v1/stock_items
