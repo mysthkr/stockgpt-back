@@ -142,7 +142,17 @@ curl -X PATCH -H "Content-Type: application/json" -d "{\"item_id\": 9999, \"subc
 Delete
 curl -X DELETE 10.0.0.11:3000/api/v1/products/5
 
+###CategoryGrocery
+Get
+curl -X GET 10.0.0.11:3000/api/v1/category_groceries
 
+Show
+curl -X GET 10.0.0.11:3000/api/v1/category_groceries/1
 
+Create
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"snack\"}" 10.0.0.11:3000/api/v1/category_groceries
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"name\": \"edited snack\"}" 10.0.0.11:3000/api/v1/category_groceries/5
 
 

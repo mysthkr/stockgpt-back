@@ -63,3 +63,18 @@ products.each do |item_id, subcategory_id, category_id,maker_id, picture|
     category_id: category_id,maker_id: maker_id, picture: picture)
 end
 
+
+category_groceries = [
+  "meet", "fish", "bevarage", "vegetable"
+]
+
+category_groceries.each do |name| 
+  CategoryGrocery.create(name: name)
+end
+
+
+
+category_ptoducts = [
+  "kitchen", "bathroom", "rooms", "outdoor"
+]
+
