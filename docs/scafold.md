@@ -97,3 +97,37 @@ curl -X PATCH -H "Content-Type: application/json" -d "{\"name\": \"editeddddd gr
 Delete
 curl -X DELETE 10.0.0.11:3000/api/v1/groups/5
 
+
+###Grocery
+3点修正
+・Model
+・Migration
+・Controller
+
+rails g scaffold api/v1/grocery item_id:bigint subcategory_id:bigint category_id:bigint
+
+
+Get
+curl -X GET 10.0.0.11:3000/api/v1/groceries
+
+Show
+curl -X GET 10.0.0.11:3000/api/v1/groceries/1
+
+Create
+curl -X POST -H "Content-Type: application/json" -d "{\"item_id\": 9, \"subcategory_id\": 2, \"category_id\": 3}" 10.0.0.11:3000/api/v1/groceries
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"item_id\": 9999, \"subcategory_id\": 299, \"category_id\": 399}" 10.0.0.11:3000/api/v1/groceries/5
+
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/groceries/5
+
+
+
+
+
+
+
+
+
+

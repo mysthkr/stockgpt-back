@@ -38,3 +38,18 @@ profiles.each do |user_id,name,nickname,roommate_number,prefecture|
 end
 
 
+
+groceries = [
+  [1, 1, 1], 
+  [2, 2, 2], 
+  [3, 3, 2],
+  [1, 1, 1] 
+]
+
+groceries.each do |item_id, subcategory_id, category_id| 
+  Grocery.create(item_id: item_id, subcategory_id: subcategory_id, category_id: category_id)
+end
+
+
+
+
