@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      resources :stock_items
+    end
+  end
+  namespace :api do
+    namespace :v1 do
       resources :sub_category_groceries
     end
   end
