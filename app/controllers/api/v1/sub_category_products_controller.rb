@@ -43,7 +43,7 @@ class Api::V1::SubCategoryProductsController < ApplicationController
     sub_category_product = SubCategoryProduct.find(params[:id])
     sub_category_product.destroy
 
-    render json: { message: 'CategoryProduct successfully deleted.' }
+    render json: { message: 'SubCategoryProduct successfully deleted.' }
   end
 
   private
