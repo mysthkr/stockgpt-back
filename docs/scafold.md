@@ -123,9 +123,24 @@ Delete
 curl -X DELETE 10.0.0.11:3000/api/v1/groceries/5
 
 
+###Product
+rails g scaffold api/v1/product item_id:bigint subcategory_id:bigint category_id:bigint maker_id:bigint picture:string
 
 
+Get
+curl -X GET 10.0.0.11:3000/api/v1/products
 
+Show
+curl -X GET 10.0.0.11:3000/api/v1/products/1
+
+Create
+curl -X POST -H "Content-Type: application/json" -d "{\"item_id\": 5, \"subcategory_id\": 2, \"category_id\": 3, \"maker_id\": 222, \"picture\": \"picture_post\"}" 10.0.0.11:3000/api/v1/products
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"item_id\": 9999, \"subcategory_id\": 299, \"category_id\": 399, \"maker_id\": 222999, \"picture\": \"edit_post\"}" 10.0.0.11:3000/api/v1/products/5
+
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/products/5
 
 
 
