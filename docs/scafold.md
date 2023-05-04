@@ -275,3 +275,23 @@ Delete
 curl -X DELETE 10.0.0.11:3000/api/v1/to_buy_lists/5
 
 
+###cart
+rails g scaffold api/v1/cart group_id:bigint item_id:bigint criteria:integer price:integer discarded_at:datetime:index
+
+Get
+curl -X GET 10.0.0.11:3000/api/v1/carts
+
+Show
+curl -X GET 10.0.0.11:3000/api/v1/carts/1
+
+Create
+curl -X POST -H "Content-Type: application/json" -d "{\"group_id\": 3,\"item_id\": 2,\"criteria\": 555}" 10.0.0.11:3000/api/v1/carts
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"group_id\": 3,\"item_id\": 2,\"criteria\": 555, \"price\": 55555,\"discarded_at\": \"2022-05-05T05:05:05\"}" 10.0.0.11:3000/api/v1/carts/5
+
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/carts/5
+
+
+
