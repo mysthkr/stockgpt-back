@@ -155,4 +155,25 @@ curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"snack\"}" 10.0
 Patch
 curl -X PATCH -H "Content-Type: application/json" -d "{\"name\": \"edited snack\"}" 10.0.0.11:3000/api/v1/category_groceries/5
 
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/category_groceries/5
+
+
+###CategoryProduct
+Get
+curl -X GET 10.0.0.11:3000/api/v1/category_products
+
+Show
+curl -X GET 10.0.0.11:3000/api/v1/category_products/1
+
+Create
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"clean\"}" 10.0.0.11:3000/api/v1/category_products
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"name\": \"edited clean\"}" 10.0.0.11:3000/api/v1/category_products/5
+
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/category_products/5
+
+
 
