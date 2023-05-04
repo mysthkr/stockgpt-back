@@ -78,3 +78,9 @@ category_ptoducts = [
   "kitchen", "bathroom", "rooms", "outdoor"
 ]
 
+category_ptoducts.each do |name| 
+  CategoryProduct.create(name: name)
+end
+
+
+

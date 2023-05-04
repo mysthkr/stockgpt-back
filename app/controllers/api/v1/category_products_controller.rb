@@ -1,51 +1,59 @@
 class Api::V1::CategoryProductsController < ApplicationController
-  before_action :set_api_v1_category_product, only: [:show, :update, :destroy]
+  before_action :set_category_product, only: [:show, :update, :destroy]
 
   # GET /api/v1/category_products
   def index
-    @api_v1_category_products = Api::V1::CategoryProduct.all
-
-    render json: @api_v1_category_products
+    category_products = CategoryProduct.all
+    if category_products
+      render json: {status: "SUCCESS", message: "Fetched all the products successfully", data: category_products}, status: :ok
+    else
+      render json: category_products.errors, status: :bad_request
+    end
   end
 
   # GET /api/v1/category_products/1
   def show
-    render json: @api_v1_category_product
+    category_product = CategoryProduct.find(params[:id])
+    render json: category_product
   end
 
   # POST /api/v1/category_products
   def create
-    @api_v1_category_product = Api::V1::CategoryProduct.new(api_v1_category_product_params)
-
-    if @api_v1_category_product.save
-      render json: @api_v1_category_product, status: :created, location: @api_v1_category_product
+    category_product = CategoryProduct.new(category_product_params)
+    if category_product.save
+      render json: category_product, status: :created, location: api_v1_category_product_url(category_product)
     else
-      render json: @api_v1_category_product.errors, status: :unprocessable_entity
+      render json: category_product.errors, status: :bad_request
     end
   end
 
   # PATCH/PUT /api/v1/category_products/1
   def update
-    if @api_v1_category_product.update(api_v1_category_product_params)
-      render json: @api_v1_category_product
+    category_product = CategoryProduct.find(params[:id])
+
+    if category_product.update(category_product_params)
+      render json: category_product
     else
-      render json: @api_v1_category_product.errors, status: :unprocessable_entity
+      render json: category_product.errors, status: :bad_request
     end
   end
 
   # DELETE /api/v1/category_products/1
   def destroy
-    @api_v1_category_product.destroy
+    category_product = CategoryProduct.find(params[:id])
+    category_product.destroy
+
+    render json: { message: 'CategoryProduct successfully deleted.' }
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_api_v1_category_product
-      @api_v1_category_product = Api::V1::CategoryProduct.find(params[:id])
+    def set_category_product
+      @category_product = CategoryProduct.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
-    def api_v1_category_product_params
-      params.require(:api_v1_category_product).permit(:name)
+    def category_product_params
+      params.require(:category_product).permit(:name)
     end
 end
