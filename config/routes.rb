@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      resources :to_buy_lists
+    end
+  end
+  namespace :api do
+    namespace :v1 do
       resources :requests
     end
   end

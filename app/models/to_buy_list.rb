@@ -1,0 +1,2 @@
+class ToBuyList < ApplicationRecord
+end

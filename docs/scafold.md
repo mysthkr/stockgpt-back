@@ -252,14 +252,26 @@ curl -X POST -H "Content-Type: application/json" -d "{\"user_id\": 3,\"request_t
 Patch
 curl -X PATCH -H "Content-Type: application/json" -d "{\"user_id\":3,\"request_type\": 3,\"request_name\": \"editeddd name\", \"register_flag\": true}" 10.0.0.11:3000/api/v1/requests/5
 
-
-
 Delete
 curl -X DELETE 10.0.0.11:3000/api/v1/requests/5
 
 
+###toBuyList
+rails g scaffold api/v1/toBuyList group_id:bigint item_id:bigint buy_flag:boolean discarded_at:datetime:index
 
+Get
+curl -X GET 10.0.0.11:3000/api/v1/to_buy_lists
 
+Show
+curl -X GET 10.0.0.11:3000/api/v1/to_buy_lists/1
 
+Create
+curl -X POST -H "Content-Type: application/json" -d "{\"group_id\": 3,\"item_id\": 2}" 10.0.0.11:3000/api/v1/to_buy_lists
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"group_id\": 4,\"item_id\": 4,\"buy_flag\": true, \"discarded_at\": \"2022-05-05T05:05:05\"}" 10.0.0.11:3000/api/v1/to_buy_lists/5
+
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/to_buy_lists/5
 
 
