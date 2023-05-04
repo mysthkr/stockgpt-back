@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group_id: 
+  item_id: 
+  criteria: 1
+  price: 1
+  discarded_at: 2023-05-04 20:44:39
+
+two:
+  group_id: 
+  item_id: 
+  criteria: 1
+  price: 1
+  discarded_at: 2023-05-04 20:44:39

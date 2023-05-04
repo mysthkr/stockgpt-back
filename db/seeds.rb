@@ -142,3 +142,15 @@ to_buy_lists = [
 to_buy_lists.each do |group_id, item_id, buy_flag, discarded_at| 
   ToBuyList.create(group_id: group_id, item_id: item_id, buy_flag: buy_flag, discarded_at: discarded_at)
 end
+
+
+carts = [
+  [1, 1, 1,111],
+  [2, 2, 22, 222],
+  [3, 3, 333,333, "2023-03-03T03:03:03"],
+  [4, 4, 4444,4444, "2023-04-04T04:04:04"]
+]
+
+carts.each do |group_id, item_id, criteria, price, discarded_at| 
+  Cart.create(group_id: group_id, item_id: item_id, criteria: criteria, price: price, discarded_at: discarded_at)
+end
