@@ -154,3 +154,14 @@ carts = [
 carts.each do |group_id, item_id, criteria, price, discarded_at| 
   Cart.create(group_id: group_id, item_id: item_id, criteria: criteria, price: price, discarded_at: discarded_at)
 end
+
+
+
+makers = [
+  "Kao", "Lion", "P&G", "SHIRO"
+]
+
+makers.each do |name| 
+  Maker.create(name: name)
+end
+
