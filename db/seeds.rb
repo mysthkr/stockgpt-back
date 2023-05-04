@@ -119,6 +119,15 @@ stock_items.each do |group_id,criteria,item_id,alarm_date,price,shop_id,quantity
 end
 
 
-
+requests = [
+  [1, 1, "Cola"],
+  [2, 2, "Soda", false],
+  [3, 3, "BodySoap", true],
+  [4, 4, "Ramp"]
+]
+requests.each do |user_id,request_type,request_name, register_flag| 
+  Request.create(user_id: user_id,request_type: request_type,
+    request_name: request_name, register_flag: register_flag)
+end
 
 
