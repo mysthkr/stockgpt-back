@@ -131,3 +131,14 @@ requests.each do |user_id,request_type,request_name, register_flag|
 end
 
 
+
+to_buy_lists = [
+  [1, 1, false],
+  [2, 2, true],
+  [3, 3, false,"2023-03-03T03:03:03"],
+  [4, 4, true,"2023-04-04T04:04:04"]
+]
+
+to_buy_lists.each do |group_id, item_id, buy_flag, discarded_at| 
+  ToBuyList.create(group_id: group_id, item_id: item_id, buy_flag: buy_flag, discarded_at: discarded_at)
+end
