@@ -54,6 +54,6 @@ class Api::V1::SubCategoryProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def sub_category_product_params
-      params.require(:sub_category_product).permit(:name, :category_id)
+      params.require(:sub_category_product).permit(:name, :category_product_id)
     end
 end
