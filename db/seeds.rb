@@ -93,3 +93,18 @@ sub_category_products = [
 sub_category_products.each do |name, category_id| 
   SubCategoryProduct.create(name: name, category_id: category_id)
 end
+
+sub_category_groceries = [
+  ["beef",1], 
+  ["pork",1], 
+  ["salmon",2],
+  ["milk",3] 
+]
+
+sub_category_groceries.each do |name, category_id| 
+  SubCategoryGrocery.create(name: name, category_id: category_id)
+end
+
+
+
+

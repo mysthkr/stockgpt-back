@@ -195,5 +195,21 @@ Delete
 curl -X DELETE 10.0.0.11:3000/api/v1/sub_category_products/5
 
 
+###SubCategoryGrocery
+rails g scaffold api/v1/subCategoryGrocery name:string category_id:bigint
 
+Get
+curl -X GET 10.0.0.11:3000/api/v1/sub_category_groceries
+
+Show
+curl -X GET 10.0.0.11:3000/api/v1/sub_category_groceries/1
+
+Create
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"Onion\", \"category_id\": 4}" 10.0.0.11:3000/api/v1/sub_category_groceries
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"name\": \"EditedOnion\", \"category_id\": 3}" 10.0.0.11:3000/api/v1/sub_category_groceries/5
+
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/sub_category_groceries/5
 
