@@ -176,4 +176,24 @@ Delete
 curl -X DELETE 10.0.0.11:3000/api/v1/category_products/5
 
 
+###SubCategoryProduct
+rails g scaffold api/v1/subCategoryProduct name:string category_id:bigint
+
+Get
+curl -X GET 10.0.0.11:3000/api/v1/sub_category_products
+
+Show
+curl -X GET 10.0.0.11:3000/api/v1/sub_category_products/1
+
+Create
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"Bochuzai\", \"category_id\": 4}" 10.0.0.11:3000/api/v1/sub_category_products
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"name\": \"EditedddBochuzai\", \"category_id\": 3}" 10.0.0.11:3000/api/v1/sub_category_products/5
+
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/sub_category_products/5
+
+
+
 

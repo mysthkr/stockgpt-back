@@ -83,4 +83,13 @@ category_ptoducts.each do |name|
 end
 
 
+sub_category_products = [
+  ["senzai",1], 
+  ["suponzi",1], 
+  ["Shampoo",2],
+  ["Fragrance",3] 
+]
 
+sub_category_products.each do |name, category_id| 
+  SubCategoryProduct.create(name: name, category_id: category_id)
+end

@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      resources :sub_category_products
+    end
+  end
+  namespace :api do
+    namespace :v1 do
       resources :products
     end
   end
