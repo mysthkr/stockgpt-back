@@ -295,3 +295,20 @@ curl -X DELETE 10.0.0.11:3000/api/v1/carts/5
 
 
 
+##maker
+rails g scaffold api/v1/maker name:string
+
+Get
+curl -X GET 10.0.0.11:3000/api/v1/makers
+
+Show
+curl -X GET 10.0.0.11:3000/api/v1/makers/1
+
+Create
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"SUNSTAR\"}" 10.0.0.11:3000/api/v1/makers
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"name\": \"EDIT SUNSTAR\"}" 10.0.0.11:3000/api/v1/makers/5
+
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/makers/5
