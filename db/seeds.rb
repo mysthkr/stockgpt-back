@@ -90,8 +90,8 @@ sub_category_products = [
   ["Fragrance",3] 
 ]
 
-sub_category_products.each do |name, category_id| 
-  SubCategoryProduct.create(name: name, category_id: category_id)
+sub_category_products.each do |name, category_product_id| 
+  SubCategoryProduct.create(name: name, category_product_id: category_product_id)
 end
 
 sub_category_groceries = [
@@ -101,8 +101,8 @@ sub_category_groceries = [
   ["milk",3] 
 ]
 
-sub_category_groceries.each do |name, category_id| 
-  SubCategoryGrocery.create(name: name, category_id: category_id)
+sub_category_groceries.each do |name, category_grocery_id| 
+  SubCategoryGrocery.create(name: name, category_grocery_id: category_grocery_id)
 end
 
 

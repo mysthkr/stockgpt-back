@@ -10,19 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_04_060606) do
+ActiveRecord::Schema.define(version: 2023_05_04_063556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "category_groceries", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "category_products", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -42,11 +42,11 @@ ActiveRecord::Schema.define(version: 2023_05_04_060606) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.bigint "item_id"
-    t.bigint "subcategory_id"
-    t.bigint "category_id"
+    t.bigint "item_id", null: false
+    t.bigint "subcategory_id", null: false
+    t.bigint "category_id", null: false
     t.bigint "maker_id"
-    t.string "picture"
+    t.string "picture", default: "default.png"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -64,16 +64,18 @@ ActiveRecord::Schema.define(version: 2023_05_04_060606) do
 
   create_table "sub_category_groceries", force: :cascade do |t|
     t.string "name", null: false
-    t.bigint "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "category_grocery_id", null: false
+    t.index ["category_grocery_id"], name: "index_sub_category_groceries_on_category_grocery_id"
   end
 
   create_table "sub_category_products", force: :cascade do |t|
     t.string "name", null: false
-    t.bigint "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "category_product_id", null: false
+    t.index ["category_product_id"], name: "index_sub_category_products_on_category_product_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -89,5 +91,7 @@ ActiveRecord::Schema.define(version: 2023_05_04_060606) do
   end
 
   add_foreign_key "profiles", "users"
+  add_foreign_key "sub_category_groceries", "category_groceries"
+  add_foreign_key "sub_category_products", "category_products"
   add_foreign_key "users", "groups"
 end
