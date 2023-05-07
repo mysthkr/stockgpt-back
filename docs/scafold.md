@@ -374,3 +374,23 @@ Delete
 curl -X DELETE 10.0.0.11:3000/api/v1/favorites/5
 
 
+
+
+##invitation
+rails g scaffold api/v1/invitation group_id:bigint user_id:bigint
+
+Get
+curl -X GET 10.0.0.11:3000/api/v1/invitations
+
+Show
+curl -X GET 10.0.0.11:3000/api/v1/invitations/1
+
+Create
+curl -X POST -H "Content-Type: application/json" -d "{\"group_id\": 4,\"user_id\": 4}" 10.0.0.11:3000/api/v1/invitations
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"group_id\": 1}" 10.0.0.11:3000/api/v1/invitations/5
+
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/invitations/5
+
