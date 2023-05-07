@@ -213,3 +213,15 @@ invitations = [
 invitations.each do |group_id, user_id| 
   Invitation.create(group_id: group_id, user_id: user_id)
 end
+
+
+items = [
+  ["Senzai", 100],
+  ["Haburashi", 200],
+  ["Shampoo", 300],
+  ["Egg", 7]
+]
+
+items.each do |name, criteria| 
+  Item.create(name: name, criteria: criteria)
+end
