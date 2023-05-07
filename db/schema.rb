@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_04_120224) do
+ActiveRecord::Schema.define(version: 2023_05_07_084056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,30 @@ ActiveRecord::Schema.define(version: 2023_05_04_120224) do
 
   create_table "category_products", force: :cascade do |t|
     t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "criteria", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "item_id", null: false
+    t.integer "criteria", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "criteria_days", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "item_id", null: false
+    t.integer "criteria", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "custom_criteria", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "item_id", null: false
+    t.integer "criteria", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

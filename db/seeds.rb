@@ -165,3 +165,21 @@ makers.each do |name|
   Maker.create(name: name)
 end
 
+
+criteria_days = [
+  [1, 1, 111],
+  [2, 2, 22],
+  [3, 3, 3333],
+  [1, 4, 4],
+]
+
+criteria_days.each do |group_id, item_id, criteria| 
+  CriteriaDay.create(group_id: group_id, item_id: item_id, criteria: criteria)
+end
+
+
+
+
+
+
+
