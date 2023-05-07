@@ -312,3 +312,29 @@ curl -X PATCH -H "Content-Type: application/json" -d "{\"name\": \"EDIT SUNSTAR\
 
 Delete
 curl -X DELETE 10.0.0.11:3000/api/v1/makers/5
+
+
+
+##criteriaDay
+rails g scaffold api/v1/criteriaDay group_id:bigint item_id:bigint criteria:integer
+
+Get
+curl -X GET 10.0.0.11:3000/api/v1/criteria_days
+
+Show
+curl -X GET 10.0.0.11:3000/api/v1/criteria_days/1
+
+Create
+curl -X POST -H "Content-Type: application/json" -d "{\"group_id\": 3,\"item_id\": 2,\"criteria\": 555}" 10.0.0.11:3000/api/v1/criteria_days
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"group_id\": 3,\"item_id\": 2,\"criteria\": 5555}" 10.0.0.11:3000/api/v1/criteria_days/5
+
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/criteria_days/5
+
+
+
+
+
+
