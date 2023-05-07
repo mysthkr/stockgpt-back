@@ -203,5 +203,13 @@ favorites.each do |group_id, item_id|
 end
 
 
+invitations = [
+  [1, 1],
+  [2, 2],
+  [3, 3],
+  [1, 4]
+]
 
-
+invitations.each do |group_id, user_id| 
+  Invitation.create(group_id: group_id, user_id: user_id)
+end
