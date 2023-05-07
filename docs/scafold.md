@@ -394,3 +394,23 @@ curl -X PATCH -H "Content-Type: application/json" -d "{\"group_id\": 1}" 10.0.0.
 Delete
 curl -X DELETE 10.0.0.11:3000/api/v1/invitations/5
 
+
+
+
+##item
+rails g scaffold api/v1/item name:string criteria:integer 
+
+Get
+curl -X GET 10.0.0.11:3000/api/v1/items
+
+Show
+curl -X GET 10.0.0.11:3000/api/v1/items/1
+
+Create
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"beef\",\"criteria\": 5}" 10.0.0.11:3000/api/v1/items
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"criteria\": 4}" 10.0.0.11:3000/api/v1/items/5
+
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/items/5
