@@ -191,3 +191,17 @@ end
 
 
 
+favorites = [
+  [1, 1],
+  [2, 2],
+  [3, 3],
+  [1, 4]
+]
+
+favorites.each do |group_id, item_id| 
+  Favorite.create(group_id: group_id, item_id: item_id)
+end
+
+
+
+
