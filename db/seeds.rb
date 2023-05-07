@@ -178,8 +178,16 @@ criteria_days.each do |group_id, item_id, criteria|
 end
 
 
+shops = [
+  ["AOKI", "Hokkaido"],
+  ["Welcia", "Toyama-ken"],
+  ["albis", "Okinawa-ken"],
+  ["Ito yokado", "Tokyo-to"],
+]
 
-
+shops.each do |name, prefecture| 
+  Shop.create(name: name, prefecture: prefecture)
+end
 
 
 
