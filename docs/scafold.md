@@ -334,6 +334,26 @@ Delete
 curl -X DELETE 10.0.0.11:3000/api/v1/criteria_days/5
 
 
+##Shop
+rails g scaffold api/v1/shop name:string prefecture:string
+
+Get
+curl -X GET 10.0.0.11:3000/api/v1/shops
+
+Show
+curl -X GET 10.0.0.11:3000/api/v1/shops/1
+
+Create
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"Ogino\",\"prefecture\": \"Yamanashi-ken\"}" 10.0.0.11:3000/api/v1/shops
+
+Patch
+curl -X PATCH -H "Content-Type: application/json" -d "{\"name\": \"Raicho\"}" 10.0.0.11:3000/api/v1/shops/5
+
+Delete
+curl -X DELETE 10.0.0.11:3000/api/v1/shops/5
+
+
+
 
 
 
