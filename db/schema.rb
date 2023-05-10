@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_10_115218) do
+ActiveRecord::Schema.define(version: 2023_05_10_124859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,12 +116,13 @@ ActiveRecord::Schema.define(version: 2023_05_10_115218) do
   end
 
   create_table "requests", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.integer "request_type", null: false
     t.string "request_name", null: false
     t.boolean "register_flag", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
   create_table "shops", force: :cascade do |t|
@@ -208,6 +209,7 @@ ActiveRecord::Schema.define(version: 2023_05_10_115218) do
   add_foreign_key "products", "makers"
   add_foreign_key "products", "sub_category_products"
   add_foreign_key "profiles", "users"
+  add_foreign_key "requests", "users"
   add_foreign_key "stock_items", "groups"
   add_foreign_key "stock_items", "items"
   add_foreign_key "stock_items", "shops"
