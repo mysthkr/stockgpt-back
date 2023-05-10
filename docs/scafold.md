@@ -32,7 +32,80 @@ curl -X POST -H "Content-Type: application/json"  -d "{"email": "post@gmail.com"
 
 
 ---auth User ---
+新規作成
 curl -X POST -H "Content-Type: application/json" -d "{\"email\": \"post@gmail.com\", \"group_id\": 1, \"password\": \"postpass\", \"admin\": false, \"business\": false }" 10.0.0.11:3000/api/v1/auth
+
+ログイン
+curl -X POST -H "Content-Type: application/json" -d "{\"email\": \"post@gmail.com\",  \"password\": \"postpass\" }" 10.0.0.11:3000/api/v1/auth/sign_in
+
+→レスポンス
+{"data":{"email":"post@gmail.com","provider":"email","uid":"post@gmail.com","id":1,"admin":false,"business":false,"group_id":1,"allow_password_change":false,"remember_created_on":null}}
+
+ログイン　with header
+
+curl -i -X POST -H "Content-Type: application/json" -d "{\"email\": \"post@gmail.com\",  \"password\": \"postpass\" }" 10.0.0.11:3000/api/v1/auth/sign_in
+
+→レスポンス
+HTTP/1.1 200 OK
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: strict-origin-when-cross-origin
+Content-Type: application/json; charset=utf-8
+access-token: oo4KoTkibCm7_jq7Bwt8dw
+token-type: Bearer
+client: xqFU5MnrTTazx1yF0Y506Q
+expiry: 1684822822
+uid: post@gmail.com
+Authorization: Bearer eyJhY2Nlc3MtdG9rZW4iOiJvbzRLb1RraWJDbTdfanE3Qnd0OGR3IiwidG9rZW4tdHlwZSI6IkJlYXJlciIsImNsaWVudCI6InhxRlU1TW5yVFRhengxeUYwWTUwNlEiLCJleHBpcnkiOiIxNjg0ODIyODIyIiwidWlkIjoicG9zdEBnbWFpbC5jb20ifQ==
+ETag: W/"b0c8099d1aa07cf2f7896502399ac4ae"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 00f6d060-b04d-4149-bc6d-7bc198085b9d
+X-Runtime: 0.358218
+Transfer-Encoding: chunked
+
+{"data":{"email":"post@gmail.com","provider":"email","uid":"post@gmail.com","id":1,"admin":false,"business":false,"group_id":1,"allow_password_change":false,"remember_created_on":null}}
+
+
+ログアウト
+
+curl -i -X DELETE -H "Content-Type: application/json" -d "{\"uid\": \"post@gmail.com\",  \"access-token\": \"AU38iVVciK-JBPUeAm4YTg\",  \"client\": \"aBAq8yggzjQI-v5QiKLIBA\" }" 10.0.0.11:3000/api/v1/auth/sign_out
+HTTP/1.1 200 OK
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: strict-origin-when-cross-origin
+Content-Type: application/json; charset=utf-8
+ETag: W/"c955e57777ec0d73639dca6748560d00"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 5f1764ce-686d-4b20-b635-e8269a2ff2a6
+X-Runtime: 0.073482
+Transfer-Encoding: chunked
+
+{"success":true}
+
+
+アカウント削除
+C:\Users\Nick>curl -i -X DELETE -H "Content-Type: application/json" -d "{\"uid\": \"post@gmail.com\",  \"access-token\": \"8zr9xVwS3JSD6Y7g-H_I4A\",  \"client\": \"p2TqR4lQgDKSbJOuglZ9uQ\" }" 10.0.0.11:3000/api/v1/auth
+HTTP/1.1 200 OK
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: strict-origin-when-cross-origin
+Content-Type: application/json; charset=utf-8
+ETag: W/"055fc03e98e327f3daf8a97528223da3"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 42453486-36fd-401e-ac28-92c61774c31d
+X-Runtime: 0.164701
+Transfer-Encoding: chunked
+
+{"status":"success","message":"Account with UID 'post@gmail.com' has been destroyed."}
 
 
 ---User---
