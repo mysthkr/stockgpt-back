@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_08_093736) do
+ActiveRecord::Schema.define(version: 2023_05_10_110236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,11 +54,14 @@ ActiveRecord::Schema.define(version: 2023_05_08_093736) do
   end
 
   create_table "groceries", force: :cascade do |t|
-    t.bigint "item_id"
-    t.bigint "subcategory_id"
-    t.bigint "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "category_grocery_id", null: false
+    t.bigint "sub_category_grocery_id", null: false
+    t.bigint "item_id", null: false
+    t.index ["category_grocery_id"], name: "index_groceries_on_category_grocery_id"
+    t.index ["item_id"], name: "index_groceries_on_item_id"
+    t.index ["sub_category_grocery_id"], name: "index_groceries_on_sub_category_grocery_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -88,13 +91,17 @@ ActiveRecord::Schema.define(version: 2023_05_08_093736) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.bigint "item_id", null: false
-    t.bigint "subcategory_id", null: false
-    t.bigint "category_id", null: false
-    t.bigint "maker_id"
     t.string "picture", default: "default.png"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "category_product_id", null: false
+    t.bigint "sub_category_product_id", null: false
+    t.bigint "item_id", null: false
+    t.bigint "maker_id", null: false
+    t.index ["category_product_id"], name: "index_products_on_category_product_id"
+    t.index ["item_id"], name: "index_products_on_item_id"
+    t.index ["maker_id"], name: "index_products_on_maker_id"
+    t.index ["sub_category_product_id"], name: "index_products_on_sub_category_product_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -190,6 +197,13 @@ ActiveRecord::Schema.define(version: 2023_05_08_093736) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "groceries", "category_groceries"
+  add_foreign_key "groceries", "items"
+  add_foreign_key "groceries", "sub_category_groceries"
+  add_foreign_key "products", "category_products"
+  add_foreign_key "products", "items"
+  add_foreign_key "products", "makers"
+  add_foreign_key "products", "sub_category_products"
   add_foreign_key "profiles", "users"
   add_foreign_key "sub_category_groceries", "category_groceries"
   add_foreign_key "sub_category_products", "category_products"

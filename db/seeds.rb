@@ -38,29 +38,24 @@ profiles.each do |user_id,name,nickname,roommate_number,prefecture|
 end
 
 
-
-groceries = [
-  [1, 1, 1], 
-  [2, 2, 2], 
-  [3, 3, 2],
-  [1, 1, 1] 
+items = [
+  ["Senzai", 100],
+  ["Haburashi", 200],
+  ["Shampoo", 300],
+  ["Egg", 7]
 ]
 
-groceries.each do |item_id, subcategory_id, category_id| 
-  Grocery.create(item_id: item_id, subcategory_id: subcategory_id, category_id: category_id)
+items.each do |name, criteria| 
+  Item.create(name: name, criteria: criteria)
 end
 
 
-products = [
-  [1, 1, 1, 1,"picture_1"], 
-  [2, 2, 2, 2,"picture_2"], 
-  [3, 3, 2, 3,"picture_3"],
-  [1, 1, 1, 1,"picture_1"] 
+makers = [
+  "Kao", "Lion", "P&G", "SHIRO"
 ]
 
-products.each do |item_id, subcategory_id, category_id,maker_id, picture| 
-  Product.create(item_id: item_id, subcategory_id: subcategory_id, 
-    category_id: category_id,maker_id: maker_id, picture: picture)
+makers.each do |name| 
+  Maker.create(name: name)
 end
 
 
@@ -105,6 +100,30 @@ sub_category_groceries.each do |name, category_grocery_id|
   SubCategoryGrocery.create(name: name, category_grocery_id: category_grocery_id)
 end
 
+
+groceries = [
+  [1, 1, 1], 
+  [2, 2, 2], 
+  [3, 3, 2],
+  [1, 1, 1] 
+]
+
+groceries.each do |item_id, sub_category_grocery_id, category_grocery_id| 
+  Grocery.create(item_id: item_id, sub_category_grocery_id: sub_category_grocery_id, category_grocery_id: category_grocery_id)
+end
+
+
+products = [
+  [1, 1, 1, 1,"picture_1"], 
+  [2, 2, 2, 2,"picture_2"], 
+  [3, 3, 2, 3,"picture_3"],
+  [1, 1, 1, 1,"picture_1"] 
+]
+
+products.each do |item_id, sub_category_product_id, category_product_id,maker_id, picture| 
+  Product.create(item_id: item_id, sub_category_product_id: sub_category_product_id, 
+    category_product_id: category_product_id,maker_id: maker_id, picture: picture)
+end
 
 stock_items = [
   [1, 1, 1, "2023-01-01", 1111, 1, 1, nil],
@@ -157,15 +176,6 @@ end
 
 
 
-makers = [
-  "Kao", "Lion", "P&G", "SHIRO"
-]
-
-makers.each do |name| 
-  Maker.create(name: name)
-end
-
-
 criteria_days = [
   [1, 1, 111],
   [2, 2, 22],
@@ -214,14 +224,3 @@ invitations.each do |group_id, user_id|
   Invitation.create(group_id: group_id, user_id: user_id)
 end
 
-
-items = [
-  ["Senzai", 100],
-  ["Haburashi", 200],
-  ["Shampoo", 300],
-  ["Egg", 7]
-]
-
-items.each do |name, criteria| 
-  Item.create(name: name, criteria: criteria)
-end
