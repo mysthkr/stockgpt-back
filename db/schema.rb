@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_10_110236) do
+ActiveRecord::Schema.define(version: 2023_05_10_115218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,17 +132,20 @@ ActiveRecord::Schema.define(version: 2023_05_10_110236) do
   end
 
   create_table "stock_items", force: :cascade do |t|
-    t.bigint "group_id", null: false
     t.integer "criteria", null: false
-    t.bigint "item_id", null: false
     t.date "alarm_date", null: false
     t.integer "price"
-    t.bigint "shop_id"
     t.integer "quantity"
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.bigint "item_id", null: false
+    t.bigint "shop_id"
     t.index ["discarded_at"], name: "index_stock_items_on_discarded_at"
+    t.index ["group_id"], name: "index_stock_items_on_group_id"
+    t.index ["item_id"], name: "index_stock_items_on_item_id"
+    t.index ["shop_id"], name: "index_stock_items_on_shop_id"
   end
 
   create_table "sub_category_groceries", force: :cascade do |t|
@@ -205,6 +208,9 @@ ActiveRecord::Schema.define(version: 2023_05_10_110236) do
   add_foreign_key "products", "makers"
   add_foreign_key "products", "sub_category_products"
   add_foreign_key "profiles", "users"
+  add_foreign_key "stock_items", "groups"
+  add_foreign_key "stock_items", "items"
+  add_foreign_key "stock_items", "shops"
   add_foreign_key "sub_category_groceries", "category_groceries"
   add_foreign_key "sub_category_products", "category_products"
   add_foreign_key "users", "groups"

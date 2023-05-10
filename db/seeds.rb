@@ -125,17 +125,6 @@ products.each do |item_id, sub_category_product_id, category_product_id,maker_id
     category_product_id: category_product_id,maker_id: maker_id, picture: picture)
 end
 
-stock_items = [
-  [1, 1, 1, "2023-01-01", 1111, 1, 1, nil],
-  [2, 2, 2, "2023-02-02", 2222,22, 2, nil],
-  [3, 3, 3, "2023-03-03", 33333,3,33, "2023-03-03T03:03:03"],
-  [4, 4, 4, "2023-04-04", 444,  4,444,"2023-04-04T04:04:04"]
-]
-
-stock_items.each do |group_id,criteria,item_id,alarm_date,price,shop_id,quantity,discarded_at| 
-  StockItem.create(group_id: group_id,criteria: criteria,item_id: item_id,alarm_date: alarm_date,
-    price: price,shop_id: shop_id,quantity: quantity,discarded_at: discarded_at)
-end
 
 
 requests = [
@@ -224,3 +213,16 @@ invitations.each do |group_id, user_id|
   Invitation.create(group_id: group_id, user_id: user_id)
 end
 
+
+
+stock_items = [
+  [1, 1, 1, "2023-01-01", 1111, 1, 1, nil],
+  [2, 2, 2, "2023-02-02", 2222, 2, 2, nil],
+  [3, 3, 3, "2023-03-03", 33333,3,33, "2023-03-03T03:03:03"],
+  [4, 4, 4, "2023-04-04", 444,  4,444,"2023-04-04T04:04:04"]
+]
+
+stock_items.each do |group_id,criteria,item_id,alarm_date,price,shop_id,quantity,discarded_at| 
+  StockItem.create(group_id: group_id,criteria: criteria,item_id: item_id,alarm_date: alarm_date,
+    price: price,shop_id: shop_id,quantity: quantity,discarded_at: discarded_at)
+end
