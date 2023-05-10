@@ -3,6 +3,7 @@ class Group < ApplicationRecord
   has_many :stock_item, dependent: :destroy
   has_many :to_buy_list, dependent: :destroy
   has_many :cart, dependent: :destroy
+  has_many :criteria_days, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 50 }
 end

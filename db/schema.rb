@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_10_131620) do
+ActiveRecord::Schema.define(version: 2023_05_10_132130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,11 +41,13 @@ ActiveRecord::Schema.define(version: 2023_05_10_131620) do
   end
 
   create_table "criteria_days", force: :cascade do |t|
-    t.bigint "group_id", null: false
-    t.bigint "item_id", null: false
     t.integer "criteria", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.bigint "item_id", null: false
+    t.index ["group_id"], name: "index_criteria_days_on_group_id"
+    t.index ["item_id"], name: "index_criteria_days_on_item_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -207,6 +209,8 @@ ActiveRecord::Schema.define(version: 2023_05_10_131620) do
 
   add_foreign_key "carts", "groups"
   add_foreign_key "carts", "items"
+  add_foreign_key "criteria_days", "groups"
+  add_foreign_key "criteria_days", "items"
   add_foreign_key "groceries", "category_groceries"
   add_foreign_key "groceries", "items"
   add_foreign_key "groceries", "sub_category_groceries"
