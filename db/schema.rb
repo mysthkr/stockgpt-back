@@ -10,20 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_10_130120) do
+ActiveRecord::Schema.define(version: 2023_05_10_131620) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "carts", force: :cascade do |t|
-    t.bigint "group_id", null: false
-    t.bigint "item_id", null: false
     t.integer "criteria", null: false
     t.integer "price"
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.bigint "item_id", null: false
     t.index ["discarded_at"], name: "index_carts_on_discarded_at"
+    t.index ["group_id"], name: "index_carts_on_group_id"
+    t.index ["item_id"], name: "index_carts_on_item_id"
   end
 
   create_table "category_groceries", force: :cascade do |t|
@@ -203,6 +205,8 @@ ActiveRecord::Schema.define(version: 2023_05_10_130120) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "carts", "groups"
+  add_foreign_key "carts", "items"
   add_foreign_key "groceries", "category_groceries"
   add_foreign_key "groceries", "items"
   add_foreign_key "groceries", "sub_category_groceries"
