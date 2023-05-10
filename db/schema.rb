@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_10_132754) do
+ActiveRecord::Schema.define(version: 2023_05_10_133244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,10 +77,12 @@ ActiveRecord::Schema.define(version: 2023_05_10_132754) do
   end
 
   create_table "invitations", force: :cascade do |t|
-    t.bigint "group_id", null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.bigint "group_id", null: false
+    t.index ["group_id"], name: "index_invitations_on_group_id"
+    t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -218,6 +220,8 @@ ActiveRecord::Schema.define(version: 2023_05_10_132754) do
   add_foreign_key "groceries", "category_groceries"
   add_foreign_key "groceries", "items"
   add_foreign_key "groceries", "sub_category_groceries"
+  add_foreign_key "invitations", "groups"
+  add_foreign_key "invitations", "users"
   add_foreign_key "products", "category_products"
   add_foreign_key "products", "items"
   add_foreign_key "products", "makers"
