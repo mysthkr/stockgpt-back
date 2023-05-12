@@ -38,29 +38,24 @@ profiles.each do |user_id,name,nickname,roommate_number,prefecture|
 end
 
 
-
-groceries = [
-  [1, 1, 1], 
-  [2, 2, 2], 
-  [3, 3, 2],
-  [1, 1, 1] 
+items = [
+  ["Senzai", 100],
+  ["Haburashi", 200],
+  ["Shampoo", 300],
+  ["Egg", 7]
 ]
 
-groceries.each do |item_id, subcategory_id, category_id| 
-  Grocery.create(item_id: item_id, subcategory_id: subcategory_id, category_id: category_id)
+items.each do |name, criteria| 
+  Item.create(name: name, criteria: criteria)
 end
 
 
-products = [
-  [1, 1, 1, 1,"picture_1"], 
-  [2, 2, 2, 2,"picture_2"], 
-  [3, 3, 2, 3,"picture_3"],
-  [1, 1, 1, 1,"picture_1"] 
+makers = [
+  "Kao", "Lion", "P&G", "SHIRO"
 ]
 
-products.each do |item_id, subcategory_id, category_id,maker_id, picture| 
-  Product.create(item_id: item_id, subcategory_id: subcategory_id, 
-    category_id: category_id,maker_id: maker_id, picture: picture)
+makers.each do |name| 
+  Maker.create(name: name)
 end
 
 
@@ -106,17 +101,30 @@ sub_category_groceries.each do |name, category_grocery_id|
 end
 
 
-stock_items = [
-  [1, 1, 1, "2023-01-01", 1111, 1, 1, nil],
-  [2, 2, 2, "2023-02-02", 2222,22, 2, nil],
-  [3, 3, 3, "2023-03-03", 33333,3,33, "2023-03-03T03:03:03"],
-  [4, 4, 4, "2023-04-04", 444,  4,444,"2023-04-04T04:04:04"]
+groceries = [
+  [1, 1, 1], 
+  [2, 2, 2], 
+  [3, 3, 2],
+  [1, 1, 1] 
 ]
 
-stock_items.each do |group_id,criteria,item_id,alarm_date,price,shop_id,quantity,discarded_at| 
-  StockItem.create(group_id: group_id,criteria: criteria,item_id: item_id,alarm_date: alarm_date,
-    price: price,shop_id: shop_id,quantity: quantity,discarded_at: discarded_at)
+groceries.each do |item_id, sub_category_grocery_id, category_grocery_id| 
+  Grocery.create(item_id: item_id, sub_category_grocery_id: sub_category_grocery_id, category_grocery_id: category_grocery_id)
 end
+
+
+products = [
+  [1, 1, 1, 1,"picture_1"], 
+  [2, 2, 2, 2,"picture_2"], 
+  [3, 3, 2, 3,"picture_3"],
+  [1, 1, 1, 1,"picture_1"] 
+]
+
+products.each do |item_id, sub_category_product_id, category_product_id,maker_id, picture| 
+  Product.create(item_id: item_id, sub_category_product_id: sub_category_product_id, 
+    category_product_id: category_product_id,maker_id: maker_id, picture: picture)
+end
+
 
 
 requests = [
@@ -155,15 +163,6 @@ carts.each do |group_id, item_id, criteria, price, discarded_at|
   Cart.create(group_id: group_id, item_id: item_id, criteria: criteria, price: price, discarded_at: discarded_at)
 end
 
-
-
-makers = [
-  "Kao", "Lion", "P&G", "SHIRO"
-]
-
-makers.each do |name| 
-  Maker.create(name: name)
-end
 
 
 criteria_days = [
@@ -215,13 +214,15 @@ invitations.each do |group_id, user_id|
 end
 
 
-items = [
-  ["Senzai", 100],
-  ["Haburashi", 200],
-  ["Shampoo", 300],
-  ["Egg", 7]
+
+stock_items = [
+  [1, 1, 1, "2023-01-01", 1111, 1, 1, nil],
+  [2, 2, 2, "2023-02-02", 2222, 2, 2, nil],
+  [3, 3, 3, "2023-03-03", 33333,3,33, "2023-03-03T03:03:03"],
+  [4, 4, 4, "2023-04-04", 444,  4,444,"2023-04-04T04:04:04"]
 ]
 
-items.each do |name, criteria| 
-  Item.create(name: name, criteria: criteria)
+stock_items.each do |group_id,criteria,item_id,alarm_date,price,shop_id,quantity,discarded_at| 
+  StockItem.create(group_id: group_id,criteria: criteria,item_id: item_id,alarm_date: alarm_date,
+    price: price,shop_id: shop_id,quantity: quantity,discarded_at: discarded_at)
 end

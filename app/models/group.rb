@@ -1,5 +1,11 @@
 class Group < ApplicationRecord
   has_many :users, dependent: :destroy
+  has_many :stock_item, dependent: :destroy
+  has_many :to_buy_list, dependent: :destroy
+  has_many :cart, dependent: :destroy
+  has_many :criteria_days, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :invitations, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 50 }
 end

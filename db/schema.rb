@@ -10,20 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_08_093736) do
+ActiveRecord::Schema.define(version: 2023_05_10_133244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "carts", force: :cascade do |t|
-    t.bigint "group_id", null: false
-    t.bigint "item_id", null: false
     t.integer "criteria", null: false
     t.integer "price"
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.bigint "item_id", null: false
     t.index ["discarded_at"], name: "index_carts_on_discarded_at"
+    t.index ["group_id"], name: "index_carts_on_group_id"
+    t.index ["item_id"], name: "index_carts_on_item_id"
   end
 
   create_table "category_groceries", force: :cascade do |t|
@@ -39,26 +41,33 @@ ActiveRecord::Schema.define(version: 2023_05_08_093736) do
   end
 
   create_table "criteria_days", force: :cascade do |t|
-    t.bigint "group_id", null: false
-    t.bigint "item_id", null: false
     t.integer "criteria", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.bigint "item_id", null: false
+    t.index ["group_id"], name: "index_criteria_days_on_group_id"
+    t.index ["item_id"], name: "index_criteria_days_on_item_id"
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.bigint "group_id", null: false
-    t.bigint "item_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.bigint "item_id", null: false
+    t.index ["group_id"], name: "index_favorites_on_group_id"
+    t.index ["item_id"], name: "index_favorites_on_item_id"
   end
 
   create_table "groceries", force: :cascade do |t|
-    t.bigint "item_id"
-    t.bigint "subcategory_id"
-    t.bigint "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "category_grocery_id", null: false
+    t.bigint "sub_category_grocery_id", null: false
+    t.bigint "item_id", null: false
+    t.index ["category_grocery_id"], name: "index_groceries_on_category_grocery_id"
+    t.index ["item_id"], name: "index_groceries_on_item_id"
+    t.index ["sub_category_grocery_id"], name: "index_groceries_on_sub_category_grocery_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -68,10 +77,12 @@ ActiveRecord::Schema.define(version: 2023_05_08_093736) do
   end
 
   create_table "invitations", force: :cascade do |t|
-    t.bigint "group_id", null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.bigint "group_id", null: false
+    t.index ["group_id"], name: "index_invitations_on_group_id"
+    t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -88,13 +99,17 @@ ActiveRecord::Schema.define(version: 2023_05_08_093736) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.bigint "item_id", null: false
-    t.bigint "subcategory_id", null: false
-    t.bigint "category_id", null: false
-    t.bigint "maker_id"
     t.string "picture", default: "default.png"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "category_product_id", null: false
+    t.bigint "sub_category_product_id", null: false
+    t.bigint "item_id", null: false
+    t.bigint "maker_id", null: false
+    t.index ["category_product_id"], name: "index_products_on_category_product_id"
+    t.index ["item_id"], name: "index_products_on_item_id"
+    t.index ["maker_id"], name: "index_products_on_maker_id"
+    t.index ["sub_category_product_id"], name: "index_products_on_sub_category_product_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -109,12 +124,13 @@ ActiveRecord::Schema.define(version: 2023_05_08_093736) do
   end
 
   create_table "requests", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.integer "request_type", null: false
     t.string "request_name", null: false
     t.boolean "register_flag", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_requests_on_user_id"
   end
 
   create_table "shops", force: :cascade do |t|
@@ -125,17 +141,20 @@ ActiveRecord::Schema.define(version: 2023_05_08_093736) do
   end
 
   create_table "stock_items", force: :cascade do |t|
-    t.bigint "group_id", null: false
     t.integer "criteria", null: false
-    t.bigint "item_id", null: false
     t.date "alarm_date", null: false
     t.integer "price"
-    t.bigint "shop_id"
     t.integer "quantity"
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.bigint "item_id", null: false
+    t.bigint "shop_id"
     t.index ["discarded_at"], name: "index_stock_items_on_discarded_at"
+    t.index ["group_id"], name: "index_stock_items_on_group_id"
+    t.index ["item_id"], name: "index_stock_items_on_item_id"
+    t.index ["shop_id"], name: "index_stock_items_on_shop_id"
   end
 
   create_table "sub_category_groceries", force: :cascade do |t|
@@ -155,13 +174,15 @@ ActiveRecord::Schema.define(version: 2023_05_08_093736) do
   end
 
   create_table "to_buy_lists", force: :cascade do |t|
-    t.bigint "group_id", null: false
-    t.bigint "item_id", null: false
     t.boolean "buy_flag", default: false
     t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.bigint "item_id", null: false
     t.index ["discarded_at"], name: "index_to_buy_lists_on_discarded_at"
+    t.index ["group_id"], name: "index_to_buy_lists_on_group_id"
+    t.index ["item_id"], name: "index_to_buy_lists_on_item_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -190,8 +211,29 @@ ActiveRecord::Schema.define(version: 2023_05_08_093736) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "carts", "groups"
+  add_foreign_key "carts", "items"
+  add_foreign_key "criteria_days", "groups"
+  add_foreign_key "criteria_days", "items"
+  add_foreign_key "favorites", "groups"
+  add_foreign_key "favorites", "items"
+  add_foreign_key "groceries", "category_groceries"
+  add_foreign_key "groceries", "items"
+  add_foreign_key "groceries", "sub_category_groceries"
+  add_foreign_key "invitations", "groups"
+  add_foreign_key "invitations", "users"
+  add_foreign_key "products", "category_products"
+  add_foreign_key "products", "items"
+  add_foreign_key "products", "makers"
+  add_foreign_key "products", "sub_category_products"
   add_foreign_key "profiles", "users"
+  add_foreign_key "requests", "users"
+  add_foreign_key "stock_items", "groups"
+  add_foreign_key "stock_items", "items"
+  add_foreign_key "stock_items", "shops"
   add_foreign_key "sub_category_groceries", "category_groceries"
   add_foreign_key "sub_category_products", "category_products"
+  add_foreign_key "to_buy_lists", "groups"
+  add_foreign_key "to_buy_lists", "items"
   add_foreign_key "users", "groups"
 end
