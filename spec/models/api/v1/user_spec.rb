@@ -33,8 +33,8 @@ RSpec.describe User, type: :model do
 
     context 'enter email and password' do
       it 'success to register user' do
-        Group.create(name: 'test')
-        user = User.create(email: 'test@gmail.com', password: 'password', group_id: 1)
+        group = Group.create(name: 'test')
+        user = User.create(email: 'test2@gmail.com', password: 'password', group_id: group.id)
         expect(user).to be_valid
       end
     end
