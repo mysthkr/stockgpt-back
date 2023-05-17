@@ -12,7 +12,7 @@ RSpec.describe SubCategoryProduct, type: :model do
     context 'enter all info' do
       it 'success to register SubCategoryProduct' do
         catPro = CategoryProduct.create(name: 'test catPro')
-        subCatPro = SubCategoryProduct.create(name: 'test subCatPro', category_product_id: 2)
+        subCatPro = SubCategoryProduct.create(name: 'test subCatPro', category_product_id: catPro.id)
         expect(subCatPro).to be_valid
       end
     end

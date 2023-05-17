@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 2023_05_10_133244) do
     t.bigint "category_product_id", null: false
     t.bigint "sub_category_product_id", null: false
     t.bigint "item_id", null: false
-    t.bigint "maker_id", null: false
+    t.bigint "maker_id"
     t.index ["category_product_id"], name: "index_products_on_category_product_id"
     t.index ["item_id"], name: "index_products_on_item_id"
     t.index ["maker_id"], name: "index_products_on_maker_id"

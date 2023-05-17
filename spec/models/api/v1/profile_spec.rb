@@ -27,7 +27,7 @@ RSpec.describe Profile, type: :model do
       it 'success to register profile' do
         group = Group.create(name: 'test')
         user = User.create(email: 'test@gmail.com', password: 'password', group_id: group.id)
-        profile = Profile.create(name: 'testname', roommate_number: 1, id: 1, user_id: user.id)
+        profile = Profile.create(name: 'testname', roommate_number: 1, user_id: user.id)
         expect(profile).to be_valid
       end
     end
