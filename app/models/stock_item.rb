@@ -1,7 +1,7 @@
 class StockItem < ApplicationRecord
   belongs_to :group
   belongs_to :item
-  belongs_to :shop
+  belongs_to :shop, optional: true
 
   validates :group_id, presence: true
   validates :criteria, presence: true, length: { maximum: 5 }

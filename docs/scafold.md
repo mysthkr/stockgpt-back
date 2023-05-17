@@ -33,7 +33,10 @@ curl -X POST -H "Content-Type: application/json"  -d "{"email": "post@gmail.com"
 
 ---auth User ---
 新規作成
-curl -X POST -H "Content-Type: application/json" -d "{\"email\": \"post@gmail.com\", \"group_id\": 1, \"password\": \"postpass\", \"admin\": false, \"business\": false }" 10.0.0.11:3000/api/v1/auth
+curl -X POST -H "Content-Type: application/json" -d "{\"email\": \"post@gmail.com\", \"group_id\": 1, \"password\": \"postpass\", \"admin\": false, \"business\": false }" 10.0.0.11:3000/api/v1/auth 
+
+or
+curl -X POST -H "Content-Type: application/json" -d "{\"email\": \"post@gmail.com\",  \"password\": \"postpass\", \"admin\": false, \"business\": false }" 10.0.0.11:3000/api/v1/auth 
 
 ログイン
 curl -X POST -H "Content-Type: application/json" -d "{\"email\": \"post@gmail.com\",  \"password\": \"postpass\" }" 10.0.0.11:3000/api/v1/auth/sign_in
