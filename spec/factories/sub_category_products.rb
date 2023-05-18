@@ -4,12 +4,12 @@ FactoryBot.define do
     category_product_id { 1 }
   end
 
-  factory :sub_category_product2, class: CategoryProduct do
+  factory :sub_category_product2, class: SubCategoryProduct do
     name { "testsub_category_product2" }
     category_product_id { 2 }
   end
 
-  factory :sub_category_product3, class: CategoryProduct do
+  factory :sub_category_product3, class: SubCategoryProduct do
     name { "testsub_category_product3" }
     category_product_id { 3 }
   end

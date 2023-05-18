@@ -1,6 +1,8 @@
 FactoryBot.define do
-  factory :admin do
+  factory :admin , class: User do
+    # association :group
     email { 'testuser@test.com' }
+    # group_id { group.id }
     group_id { 1 }
     password { 'testuser' }
     admin {true}
@@ -8,6 +10,7 @@ FactoryBot.define do
   end
 
   factory :user2, class: User do
+    # association :group
     email { 'testuser2@test.com' }
     group_id { 2 }
     password { 'testuser2' }
@@ -16,6 +19,7 @@ FactoryBot.define do
   end
 
   factory :user3, class: User do
+    # association :group
     email { 'testuser3@test.com' }
     group_id { 3 }
     password { 'testuser3' }
