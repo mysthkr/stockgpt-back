@@ -1,98 +1,47 @@
 Rails.application.routes.draw do
-  
   namespace :api do
     namespace :v1 do
       resources :items
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :invitations
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :favorites
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :shops
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :criteria_days
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :makers
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :carts
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :to_buy_lists
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :requests
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :stock_items
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :sub_category_groceries
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :sub_category_products
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :products
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :groceries
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :groups
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :profiles
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :users
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :category_products
-    end
-  end
-  namespace :api do
-    namespace :v1 do
       resources :category_groceries
+
+      namespace :admin do
+        resources :items
+        resources :invitations
+        resources :favorites
+        resources :shops
+        resources :criteria_days
+        resources :makers
+        resources :carts
+        resources :to_buy_lists
+        resources :requests
+        resources :stock_items
+        resources :sub_category_groceries
+        resources :sub_category_products
+        resources :products
+        resources :groceries
+        resources :groups
+        resources :profiles
+        resources :users
+        resources :category_products
+        resources :category_groceries
+      end
     end
   end
   namespace :api do
@@ -102,5 +51,4 @@ Rails.application.routes.draw do
       }
     end
   end
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
