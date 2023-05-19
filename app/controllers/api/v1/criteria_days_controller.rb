@@ -3,13 +3,11 @@ class Api::V1::CriteriaDaysController < ApplicationController
 
   # GET /api/v1/criteria_days
   def index
-    def index
-      criteria_days = CriteriaDay.all
-      if criteria_days
-        render json: {status: "SUCCESS", message: "Fetched all the criteria_days successfully", data: criteria_days}, status: :ok
-      else
-        render json: criteria_days.errors, status: :bad_request
-      end
+    criteria_days = CriteriaDay.all
+    if criteria_days
+      render json: {status: "SUCCESS", message: "Fetched all the criteria_days successfully", data: criteria_days}, status: :ok
+    else
+      render json: criteria_days.errors, status: :bad_request
     end
   end
 
