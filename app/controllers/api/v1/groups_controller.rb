@@ -1,20 +1,21 @@
 class Api::V1::GroupsController < ApplicationController
   before_action :set_group, only: [:show, :update, :destroy]
   before_action :authenticate_api_v1_user! , only: [:show, :update, :destroy]
+  before_action :current_user_eq_profile, only: [:show, :update, :destroy]
 
-  # GET /api/v1/groups
-  def index
-    groups = Group.all
-    if groups
-      render json: {status: "SUCCESS", message: "Fetched all the groups successfully", data: groups}, status: :ok
-    else
-      render json: groups.errors, status: :bad_request
-    end
-  end
+  # # GET /api/v1/groups
+  # def index
+  #   groups = Group.where(id: params[:id], group_id: current_api_v1_user.group_id)
+  #   if groups
+  #     render json: {status: "SUCCESS", message: "Fetched all the groups successfully", data: groups}, status: :ok
+  #   else
+  #     render json: groups.errors, status: :bad_request
+  #   end
+  # end
 
   # GET /api/v1/groups/1
   def show
-    group = Group.find(params[:id])
+    group = Group.find(current_api_v1_user.group_id)
     render json: group
   end
 
@@ -30,7 +31,7 @@ class Api::V1::GroupsController < ApplicationController
 
   # PATCH/PUT /api/v1/groups/1
   def update
-    group = Group.find(params[:id])
+    group = Group.find(current_api_v1_user.group_id)
 
     if group.update(group_params)
       render json: group
@@ -56,5 +57,10 @@ class Api::V1::GroupsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def group_params
       params.require(:group).permit(:name)
+    end
+
+    def current_user_eq_profile
+      binding.irb
+      head :unauthorized unless current_api_v1_user.group_id == Group.find_by(id: params[:id]).id
     end
 end

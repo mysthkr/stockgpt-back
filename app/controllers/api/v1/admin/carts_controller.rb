@@ -1,4 +1,7 @@
-class Api::V1::Admin::CartsController < Api::V1::CartsController
+class Api::V1::Admin::CartsController < ApplicationController
+  before_action :set_cart, only: [:show, :update, :destroy]
+  before_action :admin_athenticate, :authenticate_api_v1_user!
+
   # GET /api/v1/carts
   def index
     carts = Cart.all
@@ -42,5 +45,16 @@ class Api::V1::Admin::CartsController < Api::V1::CartsController
     cart.destroy
 
     render json: { message: 'Cart successfully deleted.' }
+  end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_cart
+    cart = Cart.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def cart_params
+    params.require(:cart).permit(:group_id, :item_id, :criteria, :price, :discarded_at)
   end
 end

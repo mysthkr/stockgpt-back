@@ -23,10 +23,10 @@ RSpec.describe "Api::V1::Admin::Carts", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get all carts" do
+    it "user fail to get all carts" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_carts_path, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -37,10 +37,10 @@ RSpec.describe "Api::V1::Admin::Carts", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get 2 cart" do
+    it "user fail to get 2 cart" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_carts_path(cart2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -71,7 +71,7 @@ RSpec.describe "Api::V1::Admin::Carts", type: :request do
       expect(response).to have_http_status :bad_request
     end
 
-    it "user succes to post cart" do
+    it "user fail to post cart" do
       auth_tokens = sign_in(user2)
       params={
         cart: {
@@ -81,7 +81,7 @@ RSpec.describe "Api::V1::Admin::Carts", type: :request do
         }
       }
       post api_v1_admin_carts_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :created
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -99,7 +99,7 @@ RSpec.describe "Api::V1::Admin::Carts", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to update 2 cart" do
+    it "user fail to update 2 cart" do
       auth_tokens = sign_in(user2)
       params={
         cart: {
@@ -107,7 +107,7 @@ RSpec.describe "Api::V1::Admin::Carts", type: :request do
         }
       }
       put api_v1_admin_cart_path(cart2.id), params: params, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -118,10 +118,10 @@ RSpec.describe "Api::V1::Admin::Carts", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to delete 2 cart" do
+    it "user fail to delete 2 cart" do
       auth_tokens = sign_in(user2)
       delete api_v1_admin_cart_path(cart2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 end

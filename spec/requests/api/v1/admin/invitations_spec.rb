@@ -19,7 +19,7 @@ RSpec.describe "Api::V1::Admin::Invitations", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get all invitations" do
+    it "user fail to get all invitations" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_invitations_path, headers: auth_tokens
       expect(response).to have_http_status :ok
@@ -33,7 +33,7 @@ RSpec.describe "Api::V1::Admin::Invitations", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get 2 invitation" do
+    it "user fail to get 2 invitation" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_invitations_path(invitation2.id), headers: auth_tokens
       expect(response).to have_http_status :ok
@@ -66,7 +66,7 @@ RSpec.describe "Api::V1::Admin::Invitations", type: :request do
       expect(response).to have_http_status :bad_request
     end
 
-    it "user succes to post invitation" do
+    it "user fail to post invitation" do
       auth_tokens = sign_in(user2)
       params={
         invitation: {
@@ -92,7 +92,7 @@ RSpec.describe "Api::V1::Admin::Invitations", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to update 2 invitation" do
+    it "user fail to update 2 invitation" do
       auth_tokens = sign_in(user2)
       params={
         invitation: {
@@ -112,7 +112,7 @@ RSpec.describe "Api::V1::Admin::Invitations", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to delete 2 invitation" do
+    it "user fail to delete 2 invitation" do
       auth_tokens = sign_in(user2)
       delete api_v1_admin_invitation_path(invitation2.id), headers: auth_tokens
       expect(response).to have_http_status :ok

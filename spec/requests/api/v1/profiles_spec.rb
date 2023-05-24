@@ -107,6 +107,18 @@ RSpec.describe "Api::V1::Profiles", type: :request do
       put api_v1_profile_path(profile2.id), params: params, headers: auth_tokens
       expect(response).to have_http_status :ok
     end
+
+    it "user fail to update 2 profile" do
+      auth_tokens = sign_in(user2)
+      params={
+        profile: {
+          name: "edited user name",
+          nickname: "edited user nickname"
+        }
+      }
+      put api_v1_profile_path(profile3.id), params: params, headers: auth_tokens
+      expect(response).to have_http_status :unauthorized
+    end
   end
 
   describe "DELETE /destroy" do
@@ -120,6 +132,12 @@ RSpec.describe "Api::V1::Profiles", type: :request do
       auth_tokens = sign_in(user2)
       delete api_v1_profile_path(profile2.id), headers: auth_tokens
       expect(response).to have_http_status :ok
+    end
+
+    it "user fail to delete 2 profile" do
+      auth_tokens = sign_in(user2)
+      delete api_v1_profile_path(profile3.id), headers: auth_tokens
+      expect(response).to have_http_status :unauthorized
     end
   end
 end

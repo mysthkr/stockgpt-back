@@ -23,10 +23,10 @@ RSpec.describe "Api::V1::Admin::ToBuyLists", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get all to_buy_lists" do
+    it "user fail to get all to_buy_lists" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_to_buy_lists_path, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -37,10 +37,10 @@ RSpec.describe "Api::V1::Admin::ToBuyLists", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get 2 to_buy_list" do
+    it "user fail to get 2 to_buy_list" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_to_buy_lists_path(to_buy_list2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -70,7 +70,7 @@ RSpec.describe "Api::V1::Admin::ToBuyLists", type: :request do
       expect(response).to have_http_status :bad_request
     end
 
-    it "user succes to post to_buy_list" do
+    it "user fail to post to_buy_list" do
       auth_tokens = sign_in(user2)
       params={
         to_buy_list: {
@@ -80,7 +80,7 @@ RSpec.describe "Api::V1::Admin::ToBuyLists", type: :request do
         }
       }
       post api_v1_admin_to_buy_lists_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :created
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -98,7 +98,7 @@ RSpec.describe "Api::V1::Admin::ToBuyLists", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to update 2 to_buy_list" do
+    it "user fail to update 2 to_buy_list" do
       auth_tokens = sign_in(user2)
       params={
         to_buy_list: {
@@ -106,7 +106,7 @@ RSpec.describe "Api::V1::Admin::ToBuyLists", type: :request do
         }
       }
       put api_v1_admin_to_buy_list_path(to_buy_list2.id), params: params, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -117,10 +117,10 @@ RSpec.describe "Api::V1::Admin::ToBuyLists", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to delete 2 to_buy_list" do
+    it "user fail to delete 2 to_buy_list" do
       auth_tokens = sign_in(user2)
       delete api_v1_admin_to_buy_list_path(to_buy_list2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 end

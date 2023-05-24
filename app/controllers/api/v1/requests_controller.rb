@@ -1,22 +1,6 @@
 class Api::V1::RequestsController < ApplicationController
   before_action :set_request, only: [:show, :update, :destroy]
-  before_action :authenticate_api_v1_user! , only: [:create, :destroy]
-
-  # GET /api/v1/requests
-  def index
-    requests = Request.all
-    if requests
-      render json: {status: "SUCCESS", message: "Fetched all the requests successfully", data: requests}, status: :ok
-    else
-      render json: requests.errors, status: :bad_request
-    end
-  end
-
-  # GET /api/v1/requests/1
-  def show
-    request = Request.find(params[:id])
-    render json: request
-  end
+  before_action :authenticate_api_v1_user! , only: [:create]
 
   # POST /api/v1/requests
   def create
@@ -26,25 +10,6 @@ class Api::V1::RequestsController < ApplicationController
     else
       render json: request.errors, status: :bad_request
     end
-  end
-
-  # PATCH/PUT /api/v1/requests/1
-  def update
-    request = Request.find(params[:id])
-
-    if request.update(request_params)
-      render json: request
-    else
-      render json: request.errors, status: :bad_request
-    end
-  end
-
-  # DELETE /api/v1/requests/1
-  def destroy
-    request = Request.find(params[:id])
-    request.destroy
-
-    render json: { message: 'Request successfully deleted.' }
   end
 
   private

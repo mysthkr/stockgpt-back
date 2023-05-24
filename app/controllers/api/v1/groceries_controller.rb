@@ -1,6 +1,6 @@
 class Api::V1::GroceriesController < ApplicationController
   before_action :set_grocery, only: [:show, :update, :destroy]
-  before_action :authenticate_api_v1_user! , only: [:index, :show, :destroy]
+  before_action :authenticate_api_v1_user! , only: [:index, :show]
 
   # GET /api/v1/groceries
   def index
@@ -17,36 +17,6 @@ class Api::V1::GroceriesController < ApplicationController
   def show
     grocery = Grocery.find(params[:id])
     render json: grocery
-  end
-
-  # POST /api/v1/groceries
-  def create
-    grocery = Grocery.new(grocery_params)
-
-    if grocery.save
-      render json: grocery, status: :created, location: api_v1_grocery_url(grocery)
-    else
-      render json: grocery.errors, status: :bad_request
-    end
-  end
-
-  # PATCH/PUT /api/v1/groceries/1
-  def update
-    grocery = Grocery.find(params[:id])
-
-    if grocery.update(grocery_params)
-      render json: grocery
-    else
-      render json: grocery.errors, status: :bad_request
-    end
-  end
-
-  # DELETE /api/v1/groceries/1
-  def destroy
-    grocery = Grocery.find(params[:id])
-    grocery.destroy
-
-    render json: { message: 'Grocery successfully deleted.' }
   end
 
   private

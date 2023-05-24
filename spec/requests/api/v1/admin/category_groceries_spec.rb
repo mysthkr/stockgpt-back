@@ -19,10 +19,10 @@ RSpec.describe "Api::V1::Admin::CategoryGroceries", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get all category_groceries" do
+    it "user fail to get all category_groceries" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_category_groceries_path, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -33,10 +33,10 @@ RSpec.describe "Api::V1::Admin::CategoryGroceries", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get 2 category_grocery" do
+    it "user fail to get 2 category_grocery" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_category_groceries_path(category_grocery2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -65,7 +65,7 @@ RSpec.describe "Api::V1::Admin::CategoryGroceries", type: :request do
       expect(response).to have_http_status :bad_request
     end
 
-    it "user succes to post category_grocery" do
+    it "user fail to post category_grocery" do
       auth_tokens = sign_in(user2)
       params={
         category_grocery: {
@@ -73,7 +73,7 @@ RSpec.describe "Api::V1::Admin::CategoryGroceries", type: :request do
         }
       }
       post api_v1_admin_category_groceries_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :created
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -89,7 +89,7 @@ RSpec.describe "Api::V1::Admin::CategoryGroceries", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to update 2 category_grocery" do
+    it "user fail to update 2 category_grocery" do
       auth_tokens = sign_in(user2)
       params={
         category_grocery: {
@@ -97,7 +97,7 @@ RSpec.describe "Api::V1::Admin::CategoryGroceries", type: :request do
         }
       }
       put api_v1_admin_category_grocery_path(category_grocery2.id), params: params, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -108,10 +108,10 @@ RSpec.describe "Api::V1::Admin::CategoryGroceries", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to delete 2 category_grocery" do
+    it "user fail to delete 2 category_grocery" do
       auth_tokens = sign_in(user2)
       delete api_v1_admin_category_grocery_path(category_grocery2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 end

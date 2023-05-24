@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :items
-      resources :invitations
+      resources :invitations, except: [:index]
       resources :favorites
       resources :shops
       resources :criteria_days
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       resources :sub_category_products
       resources :products
       resources :groceries
-      resources :groups
+      resources :groups, except: [:index]
       resources :profiles
       resources :users
       resources :category_products

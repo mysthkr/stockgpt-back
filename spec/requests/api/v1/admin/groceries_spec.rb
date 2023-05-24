@@ -21,11 +21,11 @@ RSpec.describe "Api::V1::Admin::Groceries", type: :request do
   let!(:sub_category_grocery3){ FactoryBot.create(:sub_category_grocery3,category_grocery_id: category_grocery3.id) }
 
   let!(:grocery){ FactoryBot.create(:grocery, item_id: item.id, 
-    sub_category_grocery: sub_category_grocery.id, category_grocery_id: category_grocery.id) }
+    sub_category_grocery_id: sub_category_grocery.id, category_grocery_id: category_grocery.id) }
   let!(:grocery2){ FactoryBot.create(:grocery2, item_id: item2.id,
-    sub_category_grocery: sub_category_grocery2.id, category_grocery_id: sub_category_grocery2.category_grocery_id) }
+    sub_category_grocery_id: sub_category_grocery2.id, category_grocery_id: sub_category_grocery2.category_grocery_id) }
   let!(:grocery3){ FactoryBot.create(:grocery3, item_id: item3.id,
-    sub_category_grocery: sub_category_grocery3.id, category_grocery_id: sub_category_grocery3.category_grocery_id) }
+    sub_category_grocery_id: sub_category_grocery3.id, category_grocery_id: sub_category_grocery3.category_grocery_id) }
 
   describe "GET /index" do
     it "admin succes to get all groceries" do
@@ -34,10 +34,10 @@ RSpec.describe "Api::V1::Admin::Groceries", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get all groceries" do
+    it "user fail to get all groceries" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_groceries_path, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -48,10 +48,10 @@ RSpec.describe "Api::V1::Admin::Groceries", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get 2 grocery" do
+    it "user fail to get 2 grocery" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_groceries_path(grocery2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -63,7 +63,7 @@ RSpec.describe "Api::V1::Admin::Groceries", type: :request do
       params={
         grocery: {
           item_id: item.id,
-          sub_category_grocery: sub_category_grocery2.id, 
+          sub_category_grocery_id: sub_category_grocery2.id, 
           category_grocery_id: category_grocery3.id
         }
       }
@@ -82,17 +82,17 @@ RSpec.describe "Api::V1::Admin::Groceries", type: :request do
       expect(response).to have_http_status :bad_request
     end
 
-    it "user succes to post grocery" do
+    it "user fail to post grocery" do
       auth_tokens = sign_in(user2)
       params={
         grocery: {
           item_id: item.id,
-          sub_category_grocery: sub_category_grocery2.id, 
+          sub_category_grocery_id: sub_category_grocery2.id, 
           category_grocery_id: category_grocery3.id
         }
       }
       post api_v1_admin_groceries_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :created
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -108,7 +108,7 @@ RSpec.describe "Api::V1::Admin::Groceries", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to update 2 grocery" do
+    it "user fail to update 2 grocery" do
       auth_tokens = sign_in(user2)
       params={
         grocery: {
@@ -116,7 +116,7 @@ RSpec.describe "Api::V1::Admin::Groceries", type: :request do
         }
       }
       put api_v1_admin_grocery_path(grocery2.id), params: params, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -127,10 +127,10 @@ RSpec.describe "Api::V1::Admin::Groceries", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to delete 2 grocery" do
+    it "user fail to delete 2 grocery" do
       auth_tokens = sign_in(user2)
       delete api_v1_admin_grocery_path(grocery2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 end

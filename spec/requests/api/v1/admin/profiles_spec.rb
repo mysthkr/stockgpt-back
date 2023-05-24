@@ -19,10 +19,10 @@ RSpec.describe "Api::V1::Admin::Profiles", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get all profiles" do
+    it "user fail to get all profiles" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_profiles_path, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -33,10 +33,10 @@ RSpec.describe "Api::V1::Admin::Profiles", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get 2 profile" do
+    it "user fail to get 2 profile" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_profiles_path(profile2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -68,7 +68,7 @@ RSpec.describe "Api::V1::Admin::Profiles", type: :request do
       expect(response).to have_http_status :bad_request
     end
 
-    it "user succes to post profile" do
+    it "user fail to post profile" do
       auth_tokens = sign_in(user2)
       params={
         profile: {
@@ -79,7 +79,7 @@ RSpec.describe "Api::V1::Admin::Profiles", type: :request do
         }
       }
       post api_v1_admin_profiles_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :created
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -96,7 +96,7 @@ RSpec.describe "Api::V1::Admin::Profiles", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to update 2 profile" do
+    it "user fail to update 2 profile" do
       auth_tokens = sign_in(user2)
       params={
         profile: {
@@ -105,7 +105,7 @@ RSpec.describe "Api::V1::Admin::Profiles", type: :request do
         }
       }
       put api_v1_admin_profile_path(profile2.id), params: params, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -116,10 +116,10 @@ RSpec.describe "Api::V1::Admin::Profiles", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to delete 2 profile" do
+    it "user fail to delete 2 profile" do
       auth_tokens = sign_in(user2)
       delete api_v1_admin_profile_path(profile2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 end

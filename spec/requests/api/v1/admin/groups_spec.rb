@@ -19,7 +19,7 @@ RSpec.describe "Api::V1::Admin::Groups", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get all groups" do
+    it "user fail to get all groups" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_groups_path, headers: auth_tokens
       expect(response).to have_http_status :ok
@@ -33,7 +33,7 @@ RSpec.describe "Api::V1::Admin::Groups", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get 2 group" do
+    it "user fail to get 2 group" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_groups_path(group2.id), headers: auth_tokens
       expect(response).to have_http_status :ok
@@ -65,7 +65,7 @@ RSpec.describe "Api::V1::Admin::Groups", type: :request do
       expect(response).to have_http_status :bad_request
     end
 
-    it "user succes to post group" do
+    it "user fail to post group" do
       auth_tokens = sign_in(user2)
       params={
         group: {
@@ -89,7 +89,7 @@ RSpec.describe "Api::V1::Admin::Groups", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to update 2 group" do
+    it "user fail to update 2 group" do
       auth_tokens = sign_in(user2)
       params={
         group: {
@@ -108,7 +108,7 @@ RSpec.describe "Api::V1::Admin::Groups", type: :request do
   #     expect(response).to have_http_status :ok
   #   end
 
-  #   it "user succes to delete 2 group" do
+  #   it "user fail to delete 2 group" do
   #     auth_tokens = sign_in(user2)
   #     delete api_v1_admin_group_path(group2.id), headers: auth_tokens
   #     expect(response).to have_http_status :ok

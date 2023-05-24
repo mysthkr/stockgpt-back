@@ -23,10 +23,10 @@ RSpec.describe "Api::V1::Admin::Favorites", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get all favorites" do
+    it "user fail to get all favorites" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_favorites_path, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -37,10 +37,10 @@ RSpec.describe "Api::V1::Admin::Favorites", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get 2 favorite" do
+    it "user fail to get 2 favorite" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_favorites_path(favorite2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -70,7 +70,7 @@ RSpec.describe "Api::V1::Admin::Favorites", type: :request do
       expect(response).to have_http_status :bad_request
     end
 
-    it "user succes to post favorite" do
+    it "user fail to post favorite" do
       auth_tokens = sign_in(user2)
       params={
         favorite: {
@@ -79,7 +79,7 @@ RSpec.describe "Api::V1::Admin::Favorites", type: :request do
         }
       }
       post api_v1_admin_favorites_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :created
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -96,7 +96,7 @@ RSpec.describe "Api::V1::Admin::Favorites", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to update 2 favorite" do
+    it "user fail to update 2 favorite" do
       auth_tokens = sign_in(user2)
       params={
         favorite: {
@@ -104,7 +104,7 @@ RSpec.describe "Api::V1::Admin::Favorites", type: :request do
         }
       }
       put api_v1_admin_favorite_path(favorite2.id), params: params, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -115,10 +115,10 @@ RSpec.describe "Api::V1::Admin::Favorites", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to delete 2 favorite" do
+    it "user fail to delete 2 favorite" do
       auth_tokens = sign_in(user2)
       delete api_v1_admin_favorite_path(favorite2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 end

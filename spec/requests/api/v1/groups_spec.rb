@@ -8,26 +8,26 @@ RSpec.describe "Api::V1::Groups", type: :request do
   let!(:user3){ FactoryBot.create(:user3, group_id: group2.id) }
   let!(:admin){ FactoryBot.create(:admin, group_id: group3.id) }
 
-  let!(:group){ FactoryBot.create(:group) }
-  let!(:group2){ FactoryBot.create(:group2) }
-  let!(:group3){ FactoryBot.create(:group3) }
+  # let!(:group){ FactoryBot.create(:group) }
+  # let!(:group2){ FactoryBot.create(:group2) }
+  # let!(:group3){ FactoryBot.create(:group3) }
 
-  describe "GET /index" do
-    it "admin succes to get all groups" do
-      auth_tokens = sign_in(admin)
-      get api_v1_groups_path, headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
+  # describe "GET /index" do
+  #   it "admin succes to get all groups" do
+  #     auth_tokens = sign_in(admin)
+  #     get api_v1_groups_path, headers: auth_tokens
+  #     expect(response).to have_http_status :ok
+  #   end
 
-    it "user succes to get all groups" do
-      auth_tokens = sign_in(user2)
-      get api_v1_groups_path, headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
-  end
+  #   it "user succes to get all groups" do
+  #     auth_tokens = sign_in(user2)
+  #     get api_v1_groups_path, headers: auth_tokens
+  #     expect(response).to have_http_status :ok
+  #   end
+  # end
 
   describe "GET /show" do
-    it "admin succes to get 1 group" do
+    it "admin succes to get 3 group" do
       auth_tokens = sign_in(admin)
       get api_v1_groups_path(group.id), headers: auth_tokens
       expect(response).to have_http_status :ok
@@ -35,7 +35,7 @@ RSpec.describe "Api::V1::Groups", type: :request do
 
     it "user succes to get 2 group" do
       auth_tokens = sign_in(user2)
-      get api_v1_groups_path(group2.id), headers: auth_tokens
+      get api_v1_groups_path(group.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
   end

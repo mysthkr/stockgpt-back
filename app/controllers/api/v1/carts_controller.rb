@@ -4,8 +4,6 @@ class Api::V1::CartsController < ApplicationController
   before_action -> { ensure_user_index("carts") }, only: [:index]
   before_action -> { ensure_user_params_id("carts") }, only: [:show, :update, :destroy]
 
-  # before_action :user_eq_group_authenticate
-
   # GET /api/v1/carts
   def index
     carts = Cart.where(group_id: current_api_v1_user.group_id)
@@ -62,16 +60,4 @@ class Api::V1::CartsController < ApplicationController
     def cart_params
       params.require(:cart).permit(:group_id, :item_id, :criteria, :price, :discarded_at)
     end
-
-    # def user_eq_group_authenticate
-    #   unless current_api_v1_user.group_id == cart.group_id
-    #     head :unauthorized
-    #   end
-    # end
-
-    # def ensure_user
-    #   @carts = current_api_v1_user.group.carts
-    #   @cart = @carts.find_by(id: params[:id])
-    #   head :unauthorized unless @cart
-    # end
 end

@@ -1,9 +1,9 @@
 class User < ApplicationRecord
-            # Include default devise modules.
-            devise :database_authenticatable, :registerable,
-                    :recoverable, :rememberable, :validatable, :trackable
-                    # :confirmable, :omniauthable
-            include DeviseTokenAuth::Concerns::User
+  # Include default devise modules.
+  devise :database_authenticatable, :registerable,
+          :recoverable, :rememberable, :validatable, :trackable
+          # :confirmable, :omniauthable
+  include DeviseTokenAuth::Concerns::User
   # after_create :set_group_id_to_primary_key
   has_one :profile, dependent: :destroy
   has_many :users, dependent: :destroy

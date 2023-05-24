@@ -92,7 +92,7 @@ RSpec.describe "Api::V1::Favorites", type: :request do
           item_id: item3.id
         }
       }
-      put api_v1_favorite_path(favorite.id), params: params, headers: auth_tokens
+      put api_v1_favorite_path(favorite3.id), params: params, headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
@@ -103,22 +103,39 @@ RSpec.describe "Api::V1::Favorites", type: :request do
         name: "test favorite updated"
         }
       }
-      put api_v1_favorite_path(favorite2.id), params: params, headers: auth_tokens
+      put api_v1_favorite_path(favorite.id), params: params, headers: auth_tokens
       expect(response).to have_http_status :ok
+    end
+
+    it "user fail to update 2 favorite" do
+      auth_tokens = sign_in(user2)
+      params={
+        favorite: {
+        name: "test favorite updated"
+        }
+      }
+      put api_v1_favorite_path(favorite2.id), params: params, headers: auth_tokens
+      expect(response).to have_http_status :unauthorized
     end
   end
 
   describe "DELETE /destroy" do
     it "admin succes to delete 1 favorite" do
       auth_tokens = sign_in(admin)
-      delete api_v1_favorite_path(favorite.id), headers: auth_tokens
+      delete api_v1_favorite_path(favorite3.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
     it "user succes to delete 2 favorite" do
       auth_tokens = sign_in(user2)
-      delete api_v1_favorite_path(favorite2.id), headers: auth_tokens
+      delete api_v1_favorite_path(favorite.id), headers: auth_tokens
       expect(response).to have_http_status :ok
+    end
+
+    it "user fail to delete 2 favorite" do
+      auth_tokens = sign_in(user2)
+      delete api_v1_favorite_path(favorite2.id), headers: auth_tokens
+      expect(response).to have_http_status :unauthorized
     end
   end
 end
