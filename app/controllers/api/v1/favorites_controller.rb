@@ -1,5 +1,6 @@
 class Api::V1::FavoritesController < ApplicationController
   before_action :set_favorite, only: [:show, :update, :destroy]
+  before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :destroy]
 
   # GET /api/v1/favorites
   def index

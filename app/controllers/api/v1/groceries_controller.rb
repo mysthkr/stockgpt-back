@@ -1,5 +1,6 @@
 class Api::V1::GroceriesController < ApplicationController
   before_action :set_grocery, only: [:show, :update, :destroy]
+  before_action :authenticate_api_v1_user! , only: [:index, :show, :destroy]
 
   # GET /api/v1/groceries
   def index

@@ -1,5 +1,6 @@
 class Api::V1::RequestsController < ApplicationController
   before_action :set_request, only: [:show, :update, :destroy]
+  before_action :authenticate_api_v1_user! , only: [:create, :destroy]
 
   # GET /api/v1/requests
   def index

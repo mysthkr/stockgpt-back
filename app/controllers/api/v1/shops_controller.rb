@@ -1,6 +1,6 @@
 class Api::V1::ShopsController < ApplicationController
   before_action :set_shop, only: [:show, :update, :destroy]
-  before_action :authenticate_api_v1_user!
+  before_action :authenticate_api_v1_user! , only: [:index, :show]
   # , only: [:create, :update, :destroy]
   #user index show
 

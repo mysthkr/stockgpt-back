@@ -1,2 +1,2 @@
-class Api::V1::Admin::ShopsController < ApplicationController
+class Api::V1::Admin::ShopsController < Api::V1::ShopsController
 end

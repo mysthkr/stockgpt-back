@@ -1,5 +1,6 @@
 class Api::V1::CriteriaDaysController < ApplicationController
   before_action :set_criteria_day, only: [:show, :update, :destroy]
+  before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy]
 
   # GET /api/v1/criteria_days
   def index

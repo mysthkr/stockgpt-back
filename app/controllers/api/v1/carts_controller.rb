@@ -1,5 +1,6 @@
 class Api::V1::CartsController < ApplicationController
   before_action :set_cart, only: [:show, :update, :destroy]
+  before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy]
 
   # GET /api/v1/carts
   def index

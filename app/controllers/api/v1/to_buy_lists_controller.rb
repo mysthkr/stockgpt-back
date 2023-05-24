@@ -1,5 +1,6 @@
 class Api::V1::ToBuyListsController < ApplicationController
   before_action :set_to_buy_list, only: [:show, :update, :destroy]
+  before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy]
 
   # GET /api/v1/to_buy_lists
   def index

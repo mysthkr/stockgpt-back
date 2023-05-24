@@ -27,7 +27,7 @@ curl -X POST -H "Content-Type: application/json"  -d '{"email": "postuser@gmail.
  email, group_id, encrypted_password, 
    admin,  business
 
-curl -X POST -H "Content-Type: application/json"  -d "{"email": "post@gmail.com", "group_id": 5, "encrypted_password": "post", "admin": true, "business": false }" 10.0.0.11:3000/api/v1/users
+curl -X POST -H "Content-Type: application/json"  -d "{"email": "post@gmail.com", "group_id": 3, "encrypted_password": "post", "admin": true, "business": false }" 10.0.0.11:3000/api/v1/users
 
 
 

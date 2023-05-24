@@ -1,5 +1,6 @@
 class Api::V1::MakersController < ApplicationController
   before_action :set_maker, only: [:show, :update, :destroy]
+  before_action :authenticate_api_v1_user! , only: [:index, :show]
 
   # GET /api/v1/makers
   def index

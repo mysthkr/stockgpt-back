@@ -1,5 +1,6 @@
 class Api::V1::SubCategoryProductsController < ApplicationController
   before_action :set_sub_category_product, only: [:show, :update, :destroy]
+  before_action :authenticate_api_v1_user! , only: [:index, :show]
 
   # GET /api/v1/sub_category_products
   def index
