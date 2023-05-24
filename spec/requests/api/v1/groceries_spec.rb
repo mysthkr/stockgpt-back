@@ -21,11 +21,11 @@ RSpec.describe "Api::V1::Groceries", type: :request do
   let!(:sub_category_grocery3){ FactoryBot.create(:sub_category_grocery3,category_grocery_id: category_grocery3.id) }
 
   let!(:grocery){ FactoryBot.create(:grocery, item_id: item.id, 
-    sub_category_grocery: sub_category_grocery.id, category_grocery_id: category_grocery.id) }
+    sub_category_grocery_id: sub_category_grocery.id, category_grocery_id: category_grocery.id) }
   let!(:grocery2){ FactoryBot.create(:grocery2, item_id: item2.id,
-    sub_category_grocery: sub_category_grocery2.id, category_grocery_id: sub_category_grocery2.category_grocery_id) }
+    sub_category_grocery_id: sub_category_grocery2.id, category_grocery_id: sub_category_grocery2.category_grocery_id) }
   let!(:grocery3){ FactoryBot.create(:grocery3, item_id: item3.id,
-    sub_category_grocery: sub_category_grocery3.id, category_grocery_id: sub_category_grocery3.category_grocery_id) }
+    sub_category_grocery_id: sub_category_grocery3.id, category_grocery_id: sub_category_grocery3.category_grocery_id) }
 
   describe "GET /index" do
     it "admin succes to get all groceries" do

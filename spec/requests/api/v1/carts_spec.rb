@@ -86,7 +86,7 @@ RSpec.describe "Api::V1::Carts", type: :request do
   end
 
   describe "PATCH/PUT /update" do
-    it "admin succes to update 1 cart" do
+    it "admin succes to update 3 cart" do
       auth_tokens = sign_in(admin)
       params={
         cart: {
@@ -95,8 +95,21 @@ RSpec.describe "Api::V1::Carts", type: :request do
           criteria: 777
         }
       }
-      put api_v1_cart_path(cart.id), params: params, headers: auth_tokens
+      put api_v1_cart_path(cart3.id), params: params, headers: auth_tokens
       expect(response).to have_http_status :ok
+    end
+
+    it "admin fail to update 3 cart" do
+      auth_tokens = sign_in(admin)
+      params={
+        cart: {
+          group_id: group3.id,
+          item_id: item3.id,
+          criteria: 777
+        }
+      }
+      put api_v1_cart_path(cart2.id), params: params, headers: auth_tokens
+      expect(response).to have_http_status :unauthorized
     end
 
     it "user succes to update 2 cart" do
@@ -106,20 +119,26 @@ RSpec.describe "Api::V1::Carts", type: :request do
           price: 500
         }
       }
-      put api_v1_cart_path(cart2.id), params: params, headers: auth_tokens
+      put api_v1_cart_path(cart.id), params: params, headers: auth_tokens
       expect(response).to have_http_status :ok
     end
   end
 
   describe "DELETE /destroy" do
-    it "admin succes to delete 1 cart" do
+    it "admin succes to delete No3 cart" do
       auth_tokens = sign_in(admin)
-      delete api_v1_cart_path(cart.id), headers: auth_tokens
+      delete api_v1_cart_path(cart3.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
+    it "admin fail to delete No3 cart" do
+      auth_tokens = sign_in(admin)
+      delete api_v1_cart_path(cart2.id), headers: auth_tokens
+      expect(response).to have_http_status :unauthorized
+    end
+
     it "user succes to delete 2 cart" do
-      auth_tokens = sign_in(user2)
+      auth_tokens = sign_in(user3)
       delete api_v1_cart_path(cart2.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
