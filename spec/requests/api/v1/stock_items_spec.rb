@@ -37,14 +37,20 @@ RSpec.describe "Api::V1::StockItems", type: :request do
   describe "GET /show" do
     it "admin succes to get 1 stock_item" do
       auth_tokens = sign_in(admin)
-      get api_v1_stock_items_path(stock_item.id), headers: auth_tokens
+      get api_v1_stock_item_path(stock_item3.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
     it "user succes to get 2 stock_item" do
       auth_tokens = sign_in(user2)
-      get api_v1_stock_items_path(stock_item2.id), headers: auth_tokens
+      get api_v1_stock_item_path(stock_item.id), headers: auth_tokens
       expect(response).to have_http_status :ok
+    end
+
+    it "user succes to get 2 stock_item" do
+      auth_tokens = sign_in(user2)
+      get api_v1_stock_item_path(stock_item2.id), headers: auth_tokens
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -110,7 +116,7 @@ RSpec.describe "Api::V1::StockItems", type: :request do
           quantity: 555
         }
       }
-      put api_v1_stock_item_path(stock_item.id), params: params, headers: auth_tokens
+      put api_v1_stock_item_path(stock_item3.id), params: params, headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
@@ -123,22 +129,41 @@ RSpec.describe "Api::V1::StockItems", type: :request do
           quantity: 555
         }
       }
-      put api_v1_stock_item_path(stock_item2.id), params: params, headers: auth_tokens
+      put api_v1_stock_item_path(stock_item.id), params: params, headers: auth_tokens
       expect(response).to have_http_status :ok
+    end
+
+    it "user fail to update 2 stock_item" do
+      auth_tokens = sign_in(user2)
+      params={
+        stock_item: {
+          criteria: 555,
+          price: 555,
+          quantity: 555
+        }
+      }
+      put api_v1_stock_item_path(stock_item2.id), params: params, headers: auth_tokens
+      expect(response).to have_http_status :unauthorized
     end
   end
 
   describe "DELETE /destroy" do
     it "admin succes to delete 1 stock_item" do
       auth_tokens = sign_in(admin)
-      delete api_v1_stock_item_path(stock_item.id), headers: auth_tokens
+      delete api_v1_stock_item_path(stock_item3.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
     it "user succes to delete 2 stock_item" do
       auth_tokens = sign_in(user2)
-      delete api_v1_stock_item_path(stock_item2.id), headers: auth_tokens
+      delete api_v1_stock_item_path(stock_item.id), headers: auth_tokens
       expect(response).to have_http_status :ok
+    end
+
+    it "user fail to delete 2 stock_item" do
+      auth_tokens = sign_in(user2)
+      delete api_v1_stock_item_path(stock_item2.id), headers: auth_tokens
+      expect(response).to have_http_status :unauthorized
     end
   end
 end

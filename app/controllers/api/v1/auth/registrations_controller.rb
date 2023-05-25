@@ -1,5 +1,6 @@
 class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
   # before_action :create_group, only: [:create]
+  # before_action :authenticate_api_v1_user! , except: [:registration]
   
   private
   # def create_group

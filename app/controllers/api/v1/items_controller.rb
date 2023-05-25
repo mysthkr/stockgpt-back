@@ -1,5 +1,6 @@
 class Api::V1::ItemsController < ApplicationController
   before_action :set_item, only: [:show, :update, :destroy]
+  before_action :authenticate_api_v1_user! , only: [:index, :show]
 
   # GET /api/v1/items
   def index
@@ -15,35 +16,6 @@ class Api::V1::ItemsController < ApplicationController
   def show
     item = Item.find(params[:id])
     render json: item
-  end
-
-  # POST /api/v1/items
-  def create
-    item = Item.new(item_params)
-    if item.save
-      render json: item, status: :created, location: api_v1_item_url(item)
-    else
-      render json: item.errors, status: :bad_request
-    end
-  end
-
-  # PATCH/PUT /api/v1/items/1
-  def update
-    item = Item.find(params[:id])
-
-    if item.update(item_params)
-      render json: item
-    else
-      render json: item.errors, status: :bad_request
-    end
-  end
-
-  # DELETE /api/v1/items/1
-  def destroy
-    item = Item.find(params[:id])
-    item.destroy
-
-    render json: { message: 'Item successfully deleted.' }
   end
 
   private
