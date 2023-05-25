@@ -29,13 +29,13 @@ RSpec.describe "Api::V1::Admin::Shops", type: :request do
   describe "GET /show" do
     it "admin succes to get 1 shop" do
       auth_tokens = sign_in(admin)
-      get api_v1_admin_shops_path(shop.id), headers: auth_tokens
+      get api_v1_admin_shop_path(shop.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
     it "user fail to get 2 shop" do
       auth_tokens = sign_in(user2)
-      get api_v1_admin_shops_path(shop2.id), headers: auth_tokens
+      get api_v1_admin_shop_path(shop2.id), headers: auth_tokens
       expect(response).to have_http_status :unauthorized
     end
   end

@@ -44,13 +44,13 @@ RSpec.describe "Api::V1::Products", type: :request do
   describe "GET /show" do
     it "admin succes to get 1 product" do
       auth_tokens = sign_in(admin)
-      get api_v1_products_path(product.id), headers: auth_tokens
+      get api_v1_product_path(product.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
     it "user succes to get 2 product" do
       auth_tokens = sign_in(user2)
-      get api_v1_products_path(product2.id), headers: auth_tokens
+      get api_v1_product_path(product2.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
   end

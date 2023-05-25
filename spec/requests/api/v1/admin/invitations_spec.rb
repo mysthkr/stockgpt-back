@@ -22,21 +22,21 @@ RSpec.describe "Api::V1::Admin::Invitations", type: :request do
     it "user fail to get all invitations" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_invitations_path, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
   describe "GET /show" do
     it "admin succes to get 1 invitation" do
       auth_tokens = sign_in(admin)
-      get api_v1_admin_invitations_path(invitation.id), headers: auth_tokens
+      get api_v1_admin_invitation_path(invitation.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
     it "user fail to get 2 invitation" do
       auth_tokens = sign_in(user2)
-      get api_v1_admin_invitations_path(invitation2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      get api_v1_admin_invitation_path(invitation2.id), headers: auth_tokens
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -75,7 +75,7 @@ RSpec.describe "Api::V1::Admin::Invitations", type: :request do
         }
       }
       post api_v1_admin_invitations_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :created
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -101,7 +101,7 @@ RSpec.describe "Api::V1::Admin::Invitations", type: :request do
         }
       }
       put api_v1_admin_invitation_path(invitation2.id), params: params, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -115,7 +115,7 @@ RSpec.describe "Api::V1::Admin::Invitations", type: :request do
     it "user fail to delete 2 invitation" do
       auth_tokens = sign_in(user2)
       delete api_v1_admin_invitation_path(invitation2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 end

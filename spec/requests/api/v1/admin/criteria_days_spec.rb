@@ -33,13 +33,13 @@ RSpec.describe "Api::V1::Admin::CriteriaDays", type: :request do
   describe "GET /show" do
     it "admin succes to get 1 criteria_day" do
       auth_tokens = sign_in(admin)
-      get api_v1_admin_criteria_days_path(criteria_day.id), headers: auth_tokens
+      get api_v1_admin_criteria_day_path(criteria_day.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
     it "user fail to get 2 criteria_day" do
       auth_tokens = sign_in(user2)
-      get api_v1_admin_criteria_days_path(criteria_day2.id), headers: auth_tokens
+      get api_v1_admin_criteria_day_path(criteria_day2.id), headers: auth_tokens
       expect(response).to have_http_status :unauthorized
     end
   end

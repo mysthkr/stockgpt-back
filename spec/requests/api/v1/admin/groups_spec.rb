@@ -22,21 +22,21 @@ RSpec.describe "Api::V1::Admin::Groups", type: :request do
     it "user fail to get all groups" do
       auth_tokens = sign_in(user2)
       get api_v1_admin_groups_path, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
   describe "GET /show" do
     it "admin succes to get 1 group" do
       auth_tokens = sign_in(admin)
-      get api_v1_admin_groups_path(group.id), headers: auth_tokens
+      get api_v1_admin_group_path(group.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
     it "user fail to get 2 group" do
       auth_tokens = sign_in(user2)
-      get api_v1_admin_groups_path(group2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
+      get api_v1_admin_group_path(group2.id), headers: auth_tokens
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -73,7 +73,7 @@ RSpec.describe "Api::V1::Admin::Groups", type: :request do
         }
       }
       post api_v1_admin_groups_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :created
+      expect(response).to have_http_status :unauthorized
     end
   end
 
@@ -97,21 +97,21 @@ RSpec.describe "Api::V1::Admin::Groups", type: :request do
         }
       }
       put api_v1_admin_group_path(group2.id), params: params, headers: auth_tokens
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :unauthorized
     end
   end
 
-  # describe "DELETE /destroy" do
-  #   it "admin succes to delete 1 group" do
-  #     auth_tokens = sign_in(admin)
-  #     delete api_v1_admin_group_path(group3.id), headers: auth_tokens
-  #     expect(response).to have_http_status :ok
-  #   end
+  describe "DELETE /destroy" do
+    it "admin succes to delete 1 group" do
+      auth_tokens = sign_in(admin)
+      delete api_v1_admin_group_path(group2.id), headers: auth_tokens
+      expect(response).to have_http_status :ok
+    end
 
-  #   it "user fail to delete 2 group" do
-  #     auth_tokens = sign_in(user2)
-  #     delete api_v1_admin_group_path(group2.id), headers: auth_tokens
-  #     expect(response).to have_http_status :ok
-  #   end
-  # end
+    it "user fail to delete 2 group" do
+      auth_tokens = sign_in(user2)
+      delete api_v1_admin_group_path(group2.id), headers: auth_tokens
+      expect(response).to have_http_status :unauthorized
+    end
+  end
 end

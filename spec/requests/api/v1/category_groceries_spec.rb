@@ -29,13 +29,13 @@ RSpec.describe "Api::V1::CategoryGroceries", type: :request do
   describe "GET /show" do
     it "admin succes to get 1 category_grocery" do
       auth_tokens = sign_in(admin)
-      get api_v1_category_groceries_path(category_grocery.id), headers: auth_tokens
+      get api_v1_category_grocery_path(category_grocery3.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
     it "user succes to get 2 category_grocery" do
       auth_tokens = sign_in(user2)
-      get api_v1_category_groceries_path(category_grocery2.id), headers: auth_tokens
+      get api_v1_category_grocery_path(category_grocery3.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
   end

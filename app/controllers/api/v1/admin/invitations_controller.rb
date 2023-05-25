@@ -1,4 +1,6 @@
-class Api::V1::Admin::InvitationsController < Api::V1::InvitationsController
+class Api::V1::Admin::InvitationsController < ApplicationController
+  before_action :admin_athenticate, :authenticate_api_v1_user!
+  
   # GET /api/v1/invitations
   def index
     invitations = Invitation.all

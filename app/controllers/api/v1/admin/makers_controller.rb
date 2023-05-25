@@ -14,8 +14,7 @@ class Api::V1::Admin::MakersController < ApplicationController
 
   # GET /api/v1/makers/1
   def show
-    maker = Maker.find(params[:id])
-    render json: maker
+    render json: @maker
   end
 
   # POST /api/v1/makers
@@ -30,19 +29,16 @@ class Api::V1::Admin::MakersController < ApplicationController
 
   # PATCH/PUT /api/v1/makers/1
   def update
-    maker = Maker.find(params[:id])
-
-    if maker.update(maker_params)
-      render json: maker
+    if @maker.update(maker_params)
+      render json: @maker
     else
-      render json: maker.errors, status: :bad_request
+      render json: @maker.errors, status: :bad_request
     end
   end
 
   # DELETE /api/v1/makers/1
   def destroy
-    maker = Maker.find(params[:id])
-    maker.destroy
+    @maker.destroy
 
     render json: { message: 'Maker successfully deleted.' }
   end
@@ -50,7 +46,7 @@ class Api::V1::Admin::MakersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_maker
-      maker = Maker.find(params[:id])
+      @maker = Maker.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

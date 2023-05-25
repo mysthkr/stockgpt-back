@@ -72,6 +72,8 @@ Transfer-Encoding: chunked
 {"data":{"email":"post@gmail.com","provider":"email","uid":"post@gmail.com","id":1,"admin":false,"business":false,"group_id":1,"allow_password_change":false,"remember_created_on":null}}
 
 
+
+
 ログアウト
 
 curl -i -X DELETE -H "Content-Type: application/json" -d "{\"uid\": \"post@gmail.com\",  \"access-token\": \"AU38iVVciK-JBPUeAm4YTg\",  \"client\": \"aBAq8yggzjQI-v5QiKLIBA\" }" 10.0.0.11:3000/api/v1/auth/sign_out

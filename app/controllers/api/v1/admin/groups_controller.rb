@@ -1,4 +1,6 @@
-class Api::V1::Admin::GroupsController < Api::V1::GroupsController
+class Api::V1::Admin::GroupsController < ApplicationController
+  before_action :admin_athenticate, :authenticate_api_v1_user!
+  
   # GET /api/v1/groups
   def index
     groups = Group.all

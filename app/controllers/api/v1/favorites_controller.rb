@@ -16,7 +16,7 @@ class Api::V1::FavoritesController < ApplicationController
 
   # GET /api/v1/favorites/1
   def show
-    favorite = Favorite..where(id: params[:id], group_id: current_api_v1_user.group_id)
+    favorite = Favorite.where(id: params[:id], group_id: current_api_v1_user.group_id)
     render json: favorite
   end
 

@@ -29,14 +29,20 @@ RSpec.describe "Api::V1::Profiles", type: :request do
   describe "GET /show" do
     it "admin succes to get 1 profile" do
       auth_tokens = sign_in(admin)
-      get api_v1_profiles_path(profile.id), headers: auth_tokens
+      get api_v1_profile_path(profile.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
     it "user succes to get 2 profile" do
       auth_tokens = sign_in(user2)
-      get api_v1_profiles_path(profile2.id), headers: auth_tokens
+      get api_v1_profile_path(profile2.id), headers: auth_tokens
       expect(response).to have_http_status :ok
+    end
+
+    it "user fail to get 2 profile" do
+      auth_tokens = sign_in(user2)
+      get api_v1_profile_path(profile3.id), headers: auth_tokens
+      expect(response).to have_http_status :unauthorized
     end
   end
 

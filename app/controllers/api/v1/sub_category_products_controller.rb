@@ -17,4 +17,10 @@ class Api::V1::SubCategoryProductsController < ApplicationController
     sub_category_product = SubCategoryProduct.find(params[:id])
     render json: sub_category_product
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_sub_category_product
+      sub_category_product = SubCategoryProduct.find(params[:id])
+    end
 end

@@ -6,7 +6,7 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
   # after_create :set_group_id_to_primary_key
   has_one :profile, dependent: :destroy
-  has_many :users, dependent: :destroy
+  # has_many :users, dependent: :destroy
   has_many :invitations, dependent: :destroy
   belongs_to :group
 
