@@ -2,31 +2,12 @@ class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
   before_action :authenticate_api_v1_user! , only: [:show, :update, :destroy]
   before_action :current_user_eq_target, only: [:show, :update, :destroy]
-
-  # # GET /api/v1/users
-  # def index
-  #   users = User.all
-  #   if users
-  #     render json: {status: "SUCCESS", message: "Fetched all the users successfully", data: users}, status: :ok
-  #   else
-  #     render json: users.errors, status: :bad_request
-  #   end
-  # end
+  skip_after_action :update_auth_header, only: [:destroy]
 
   # GET /api/v1/user/1
   def show
     user = User.find(current_api_v1_user.id)
     render json: user
-  end
-
-  # POST /api/v1/user
-  def create
-    user = User.new(user_params)
-    if user.save
-      render json: user, status: :created, location: api_v1_user_url(user)
-    else
-      render json: user.errors, status: :bad_request
-    end
   end
 
   # PATCH/PUT /api/v1/users/1
@@ -43,11 +24,7 @@ class Api::V1::UsersController < ApplicationController
   # DELETE /api/v1/users/1
   def destroy
     user = User.find(params[:id])
-    # binding.irb
     user.destroy
-    # unless User.find(params[:id])
-    #   binding.irb
-    # end
     render json: { message: 'User successfully deleted.' }
   end
 
@@ -63,7 +40,6 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def current_user_eq_target
-      binding.irb
       head :unauthorized unless current_api_v1_user.id == params[:id].to_i
     end
 end

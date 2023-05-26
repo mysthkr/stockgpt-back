@@ -8,20 +8,6 @@ RSpec.describe "Api::V1::Users", type: :request do
   let!(:user3){ FactoryBot.create(:user3, group_id: group2.id) }
   let!(:admin){ FactoryBot.create(:admin, group_id: group3.id) }
 
-  # describe "GET /api/v1/admin/users" do
-  #   it "管理権限ユーザーはユーザー情報を全件取得出来る" do
-  #     auth_tokens = sign_in(admin)
-  #     get api_v1_users_path, headers: auth_tokens
-  #     expect(response).to have_http_status :ok
-  #   end
-
-  #   # it "一般権限ユーザーはユーザー情報を全件取得出来る" do
-  #   #   auth_tokens = sign_in(user2)
-  #   #   get api_v1_users_path, headers: auth_tokens
-  #   #   expect(response).to have_http_status :unauthorized
-  #   # end
-  # end
-
   describe "GET /show" do
     it "admin succes to get ownself" do
       auth_tokens = sign_in(admin)
@@ -29,20 +15,20 @@ RSpec.describe "Api::V1::Users", type: :request do
       expect(response).to have_http_status :ok
     end
 
-    it "user succes to get 2 group" do
+    it "user succes to get own user" do
       auth_tokens = sign_in(user2)
       get api_v1_user_path(user2.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
-    it "user fail to get 2 group" do
+    it "user fail to get another user" do
       auth_tokens = sign_in(user2)
       get api_v1_user_path(user3.id), headers: auth_tokens
       expect(response).to have_http_status :unauthorized
     end
   end
 
-  describe "PUT /api/v1/admin/user/:id" do
+  describe "PATCH/PUT /update" do
     it "ユーザーは自ユーザー情報を更新出来る" do
       auth_tokens = sign_in(admin)
       params={
@@ -70,10 +56,9 @@ RSpec.describe "Api::V1::Users", type: :request do
     end
   end
 
-  describe "DELETE /api/v1/admin/user/:id" do
+  describe "DELETE /api/v1/user/:id" do
     it "ユーザーは自ユーザー情報を削除出来る" do
       auth_tokens = sign_in(user2)
-      binding.irb
       delete api_v1_user_path(user2.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end

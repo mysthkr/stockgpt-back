@@ -1,6 +1,7 @@
 class Api::V1::Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
   before_action :admin_athenticate, :authenticate_api_v1_user!
+  skip_after_action :update_auth_header, only: [:destroy]
 
   # GET /api/v1/users
   def index
