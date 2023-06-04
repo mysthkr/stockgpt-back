@@ -1,6 +1,6 @@
 class Api::V1::CategoryGroceriesController < ApplicationController
   before_action :set_category_grocery, only: [:show, :update, :destroy]
-  before_action :authenticate_api_v1_user! , only: [:index, :show]
+  # before_action :authenticate_api_v1_user! , only: [:index, :show]
   
   # GET /api/v1/category_groceries
   def index
