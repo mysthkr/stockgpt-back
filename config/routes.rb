@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       resources :users
       resources :category_products
       resources :category_groceries
+      post 'searches', to: 'searches#create'
 
       namespace :admin do
         resources :items
