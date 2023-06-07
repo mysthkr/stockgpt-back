@@ -1,6 +1,6 @@
 class Api::V1::ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :update, :destroy]
-  before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy]
+  # before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy]
   before_action :current_user_eq_profile, only: [:show, :update, :destroy]
 
   # GET /api/v1/profiles
