@@ -22,5 +22,4 @@ class ApplicationController < ActionController::API
     model = group_models.find_by(id: params[:id])
     head :unauthorized unless model
   end
-
 end

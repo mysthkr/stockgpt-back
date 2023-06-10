@@ -1,17 +1,17 @@
 class Api::V1::SearchesController < ApplicationController
-    # before_action :authenticate_api_v1_user! , only: [:index, :show]
+    # before_action :authenticate_api_v1_user! , only: [:create]
   
-    # GET /api/v1/shops
-    def index
-      shops = Shop.all
-      if shops
-        render json: {status: "SUCCESS", message: "Fetched all the shops successfully", data: shops}, status: :ok
-      else
-        render json: shops.errors, status: :bad_request
-      end
-    end
+    # # GET /api/v1/shops
+    # def index
+    #   shops = Shop.all
+    #   if shops
+    #     render json: {status: "SUCCESS", message: "Fetched all the shops successfully", data: shops}, status: :ok
+    #   else
+    #     render json: shops.errors, status: :bad_request
+    #   end
+    # end
   
-    # POST /api/v1/shops/1
+    # POST /api/v1/
     def create
       params ||= JSON.parse(request.body.read, {:symbolize_names => true})
       puts "params:"

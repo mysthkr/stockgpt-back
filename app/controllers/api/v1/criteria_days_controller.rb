@@ -1,6 +1,7 @@
 class Api::V1::CriteriaDaysController < ApplicationController
   before_action :set_criteria_day, only: [:show, :update, :destroy]
   before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy]
+  before_action :set_group_id, only: [:create, :update, :destroy]
   before_action -> { ensure_user_index("criteria_days") }, only: [:index]
   before_action -> { ensure_user_params_id("criteria_days") }, only: [:show, :update, :destroy]
 
@@ -60,4 +61,9 @@ class Api::V1::CriteriaDaysController < ApplicationController
     def criteria_day_params
       params.require(:criteria_day).permit(:group_id, :item_id, :criteria)
     end
+
+    
+  def set_group_id
+    params[:criteria_day][:group_id] = current_api_v1_user.group_id
+  end
 end

@@ -1,6 +1,7 @@
 class Api::V1::RequestsController < ApplicationController
   # before_action :set_request, only: [:show, :update, :destroy]
   before_action :authenticate_api_v1_user! , only: [:create]
+  before_action :set_userid, only: [:create]
 
   # POST /api/v1/requests
   def create
@@ -22,4 +23,9 @@ class Api::V1::RequestsController < ApplicationController
     def request_params
       params.require(:request).permit(:user_id, :request_type, :request_name, :register_flag)
     end
+
+    
+  def set_userid
+    params[:user][:id] = current_api_v1_user.id
+  end
 end

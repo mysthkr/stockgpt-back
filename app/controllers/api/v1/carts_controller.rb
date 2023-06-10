@@ -1,6 +1,7 @@
 class Api::V1::CartsController < ApplicationController
   before_action :set_cart, only: [:show, :update, :destroy]
   before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy]
+  before_action :set_group_id, only: [:create, :update, :destroy]
   before_action -> { ensure_user_index("carts") }, only: [:index]
   before_action -> { ensure_user_params_id("carts") }, only: [:show, :update, :destroy]
 
@@ -23,6 +24,7 @@ class Api::V1::CartsController < ApplicationController
 
   # POST /api/v1/carts
   def create
+    puts cart_params
     cart = Cart.new(cart_params)
     if cart.save
       render json: cart, status: :created, location: api_v1_cart_url(cart)
@@ -59,5 +61,9 @@ class Api::V1::CartsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def cart_params
       params.require(:cart).permit(:group_id, :item_id, :criteria, :price, :discarded_at)
+    end
+
+    def set_group_id
+      params[:cart][:group_id] = current_api_v1_user.group_id
     end
 end
