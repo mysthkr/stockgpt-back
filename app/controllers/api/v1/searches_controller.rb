@@ -17,7 +17,8 @@ class Api::V1::SearchesController < ApplicationController
       puts "params:"
       puts params
       search = Grocery.search_word(params[:data])
-      puts search
+      pp search
+      return render json: search
       # if invitation.save
       #   render json: search, status: :created, location: api_v1_invitation_url(invitation)
       # else

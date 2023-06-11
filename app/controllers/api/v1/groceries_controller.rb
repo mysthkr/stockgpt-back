@@ -1,5 +1,5 @@
 class Api::V1::GroceriesController < ApplicationController
-  before_action :authenticate_api_v1_user! , only: [:index, :show]
+  # before_action :authenticate_api_v1_user! , only: [:index, :show]
 
   # GET /api/v1/groceries
   def index

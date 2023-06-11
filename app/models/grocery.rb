@@ -7,5 +7,5 @@ class Grocery < ApplicationRecord
   validates :sub_category_grocery_id, presence: true
   validates :category_grocery_id, presence: true
 
-  scope :search_word,  -> (word){ Grocery.includes(:item).where("items.name LIKE ?", "%#{word}%") }
+  scope :search_word,  -> (word){ Grocery.joins(:item).where("items.name LIKE ?", "%#{word}%") }
 end
