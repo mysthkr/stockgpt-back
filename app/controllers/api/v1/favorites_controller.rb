@@ -1,9 +1,18 @@
 class Api::V1::FavoritesController < ApplicationController
   before_action :set_favorite, only: [:show, :update, :destroy]
+  before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :destroy]
+  before_action :set_group_id, only: [:create, :update, :destroy]
+  before_action -> { ensure_user_index("favorites") }, only: [:index]
+  before_action -> { ensure_user_params_id("favorites") }, only: [:show, :update, :destroy]
 
   # GET /api/v1/favorites
   def index
-    favorites = Favorite.all
+    favorites = Favorite.where(group_id: current_api_v1_user.group_id).joins(:item, item: :product)
+    .select('favorites.*, items.name as item_name, products.*')
+    # favorites = Favorite.where(group_id: current_api_v1_user.group_id)
+    pp favorites
+    puts favorites.to_json
+    
     if favorites
       render json: {status: "SUCCESS", message: "Fetched all the favorites successfully", data: favorites}, status: :ok
     else
@@ -13,7 +22,7 @@ class Api::V1::FavoritesController < ApplicationController
 
   # GET /api/v1/favorites/1
   def show
-    favorite = Favorite.find(params[:id])
+    favorite = Favorite.where(id: params[:id], group_id: current_api_v1_user.group_id)
     render json: favorite
   end
 
@@ -29,7 +38,7 @@ class Api::V1::FavoritesController < ApplicationController
 
   # PATCH/PUT /api/v1/favorites/1
   def update
-    favorite = Favorite.find(params[:id])
+    favorite = Favorite.where(id: params[:id], group_id: current_api_v1_user.group_id)
 
     if favorite.update(favorite_params)
       render json: favorite
@@ -55,5 +64,9 @@ class Api::V1::FavoritesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def favorite_params
       params.require(:favorite).permit(:group_id, :item_id)
+    end
+    
+    def set_group_id
+      params[:favorite][:group_id] = current_api_v1_user.group_id
     end
 end

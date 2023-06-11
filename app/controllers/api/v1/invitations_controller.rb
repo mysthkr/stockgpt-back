@@ -1,19 +1,13 @@
 class Api::V1::InvitationsController < ApplicationController
   before_action :set_invitation, only: [:show, :update, :destroy]
-
-  # GET /api/v1/invitations
-  def index
-    invitations = Invitation.all
-    if invitations
-      render json: {status: "SUCCESS", message: "Fetched all the invitations successfully", data: invitations}, status: :ok
-    else
-      render json: invitations.errors, status: :bad_request
-    end
-  end
+  before_action :authenticate_api_v1_user! , only: [:show, :create, :update, :destroy]
+  # before_action -> { ensure_user_index("invitations") }, only: [:index]
+  before_action -> { ensure_user_params_id("invitations") }, only: [:show, :destroy]
+  before_action :set_group_id, only: [:create, :update, :destroy]
 
   # GET /api/v1/invitations/1
   def show
-    invitation = Invitation.find(params[:id])
+    invitation = Invitation.where(id: params[:id], group_id: current_api_v1_user.group_id)
     render json: invitation
   end
 
@@ -27,16 +21,16 @@ class Api::V1::InvitationsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /api/v1/invitations/1
-  def update
-    invitation = Invitation.find(params[:id])
+  # # PATCH/PUT /api/v1/invitations/1
+  # def update
+  #   invitation = Invitation.where(id: params[:id], group_id: current_api_v1_user.group_id)
 
-    if invitation.update(invitation_params)
-      render json: invitation
-    else
-      render json: invitation.errors, status: :bad_request
-    end
-  end
+  #   if invitation.update(invitation_params)
+  #     render json: invitation
+  #   else
+  #     render json: invitation.errors, status: :bad_request
+  #   end
+  # end
 
   # DELETE /api/v1/invitations/1
   def destroy
@@ -56,4 +50,9 @@ class Api::V1::InvitationsController < ApplicationController
     def invitation_params
       params.require(:invitation).permit(:group_id, :user_id)
     end
+
+    def set_group_id
+      params[:invitation][:group_id] = current_api_v1_user.group_id
+    end
+    
 end

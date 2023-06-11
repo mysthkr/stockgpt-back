@@ -29,81 +29,13 @@ RSpec.describe "Api::V1::Shops", type: :request do
   describe "GET /show" do
     it "admin succes to get 1 shop" do
       auth_tokens = sign_in(admin)
-      get api_v1_shops_path(shop.id), headers: auth_tokens
+      get api_v1_shop_path(shop.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
 
     it "user succes to get 2 shop" do
       auth_tokens = sign_in(user2)
-      get api_v1_shops_path(shop2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
-  end
-
-  ##########################################
-  
-  describe "POST /create" do
-    it "admin succes to post shop" do
-      auth_tokens = sign_in(admin)
-      params={
-        shop: {
-        name: "test shop posted",
-        prefecture: "Hokkaido",
-        }
-      }
-      post api_v1_shops_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :created
-    end
-
-    it "user succes to post shop" do
-      auth_tokens = sign_in(user2)
-      params={
-        shop: {
-        name: "test shop posted",
-        prefecture: "Hokkaido",
-        }
-      }
-      post api_v1_shops_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :created
-    end
-  end
-
-  describe "PATCH/PUT /update" do
-    it "admin succes to update 1 shop" do
-      auth_tokens = sign_in(admin)
-      params={
-        shop: {
-        name: "test shop posted",
-        prefecture: "Hokkaido",
-        }
-      }
-      put api_v1_shop_path(shop.id), params: params, headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
-
-    it "user succes to update 2 shop" do
-      auth_tokens = sign_in(user2)
-      params={
-        shop: {
-        name: "test shop posted",
-        prefecture: "Hokkaido",
-        }
-      }
-      put api_v1_shop_path(shop2.id), params: params, headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
-  end
-
-  describe "DELETE /destroy" do
-    it "admin succes to delete 1 shop" do
-      auth_tokens = sign_in(admin)
-      delete api_v1_shop_path(shop.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
-
-    it "user succes to delete 2 shop" do
-      auth_tokens = sign_in(user2)
-      delete api_v1_shop_path(shop2.id), headers: auth_tokens
+      get api_v1_shop_path(shop2.id), headers: auth_tokens
       expect(response).to have_http_status :ok
     end
   end

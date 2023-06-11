@@ -1,9 +1,13 @@
 class Api::V1::ToBuyListsController < ApplicationController
   before_action :set_to_buy_list, only: [:show, :update, :destroy]
+  before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy]
+  before_action -> { ensure_user_index("to_buy_lists") }, only: [:index]
+  before_action -> { ensure_user_params_id("to_buy_lists") }, only: [:show, :update, :destroy]
+  before_action :set_group_id, only: [:create, :update, :destroy]
 
   # GET /api/v1/to_buy_lists
   def index
-    to_buy_lists = ToBuyList.all
+    to_buy_lists = ToBuyList.where(group_id: current_api_v1_user.group_id)
     if to_buy_lists
       render json: {status: "SUCCESS", message: "Fetched all the to_buy_lists successfully", data: to_buy_lists}, status: :ok
     else
@@ -13,7 +17,7 @@ class Api::V1::ToBuyListsController < ApplicationController
 
   # GET /api/v1/to_buy_lists/1
   def show
-    to_buy_list = ToBuyList.find(params[:id])
+    to_buy_list = ToBuyList.where(id: params[:id], group_id: current_api_v1_user.group_id)
     render json: to_buy_list
   end
 
@@ -29,7 +33,7 @@ class Api::V1::ToBuyListsController < ApplicationController
 
   # PATCH/PUT /api/v1/to_buy_lists/1
   def update
-    to_buy_list = ToBuyList.find(params[:id])
+    to_buy_list = ToBuyList.where(id: params[:id], group_id: current_api_v1_user.group_id)
 
     if to_buy_list.update(to_buy_list_params)
       render json: to_buy_list
@@ -55,5 +59,9 @@ class Api::V1::ToBuyListsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def to_buy_list_params
       params.require(:to_buy_list).permit(:group_id, :item_id, :buy_flag, :discarded_at)
+    end
+
+    def set_group_id
+      params[:to_buy_list][:group_id] = current_api_v1_user.group_id
     end
 end

@@ -27,7 +27,7 @@ curl -X POST -H "Content-Type: application/json"  -d '{"email": "postuser@gmail.
  email, group_id, encrypted_password, 
    admin,  business
 
-curl -X POST -H "Content-Type: application/json"  -d "{"email": "post@gmail.com", "group_id": 5, "encrypted_password": "post", "admin": true, "business": false }" 10.0.0.11:3000/api/v1/users
+curl -X POST -H "Content-Type: application/json"  -d "{"email": "post@gmail.com", "group_id": 3, "encrypted_password": "post", "admin": true, "business": false }" 10.0.0.11:3000/api/v1/users
 
 
 
@@ -70,6 +70,8 @@ X-Runtime: 0.358218
 Transfer-Encoding: chunked
 
 {"data":{"email":"post@gmail.com","provider":"email","uid":"post@gmail.com","id":1,"admin":false,"business":false,"group_id":1,"allow_password_change":false,"remember_created_on":null}}
+
+
 
 
 ログアウト
