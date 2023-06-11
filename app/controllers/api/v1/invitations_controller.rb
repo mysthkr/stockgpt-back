@@ -3,6 +3,7 @@ class Api::V1::InvitationsController < ApplicationController
   before_action :authenticate_api_v1_user! , only: [:show, :create, :update, :destroy]
   # before_action -> { ensure_user_index("invitations") }, only: [:index]
   before_action -> { ensure_user_params_id("invitations") }, only: [:show, :destroy]
+  before_action :set_group_id, only: [:create, :update, :destroy]
 
   # GET /api/v1/invitations/1
   def show
@@ -49,4 +50,9 @@ class Api::V1::InvitationsController < ApplicationController
     def invitation_params
       params.require(:invitation).permit(:group_id, :user_id)
     end
+
+    def set_group_id
+      params[:invitation][:group_id] = current_api_v1_user.group_id
+    end
+    
 end

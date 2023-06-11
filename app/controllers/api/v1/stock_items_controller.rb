@@ -3,6 +3,7 @@ class Api::V1::StockItemsController < ApplicationController
   before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy]
   before_action -> { ensure_user_index("stock_items") }, only: [:index]
   before_action -> { ensure_user_params_id("stock_items") }, only: [:show, :update, :destroy]
+  before_action :set_group_id, only: [:create, :update, :destroy]
 
   # GET /api/v1/stock_items
   def index
@@ -58,5 +59,9 @@ class Api::V1::StockItemsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def stock_item_params
       params.require(:stock_item).permit(:group_id, :criteria, :item_id, :alarm_date, :price, :shop_id, :quantity, :discarded_at)
+    end
+
+    def set_group_id
+      params[:stock_item][:group_id] = current_api_v1_user.group_id
     end
 end

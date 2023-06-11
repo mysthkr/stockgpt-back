@@ -2,6 +2,7 @@ class Api::V1::GroupsController < ApplicationController
   before_action :set_group, only: [:show, :update, :destroy]
   before_action :authenticate_api_v1_user! , only: [:show, :update, :destroy]
   before_action :current_user_eq_profile, only: [:show, :update, :destroy]
+  before_action :set_group_id, only: [:create, :update, :destroy]
 
   # # GET /api/v1/groups
   # def index

@@ -3,6 +3,7 @@ class Api::V1::ToBuyListsController < ApplicationController
   before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy]
   before_action -> { ensure_user_index("to_buy_lists") }, only: [:index]
   before_action -> { ensure_user_params_id("to_buy_lists") }, only: [:show, :update, :destroy]
+  before_action :set_group_id, only: [:create, :update, :destroy]
 
   # GET /api/v1/to_buy_lists
   def index
@@ -58,5 +59,9 @@ class Api::V1::ToBuyListsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def to_buy_list_params
       params.require(:to_buy_list).permit(:group_id, :item_id, :buy_flag, :discarded_at)
+    end
+
+    def set_group_id
+      params[:to_buy_list][:group_id] = current_api_v1_user.group_id
     end
 end
