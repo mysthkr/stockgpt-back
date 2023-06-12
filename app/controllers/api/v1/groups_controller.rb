@@ -2,7 +2,7 @@ class Api::V1::GroupsController < ApplicationController
   before_action :set_group, only: [:show, :update, :destroy]
   before_action :authenticate_api_v1_user! , only: [:show, :update, :destroy]
   before_action :current_user_eq_profile, only: [:show, :update, :destroy]
-  before_action :set_group_id, only: [:create, :update, :destroy]
+  before_action :set_group_id, only: [:update, :destroy]
 
   # # GET /api/v1/groups
   # def index
@@ -64,5 +64,9 @@ class Api::V1::GroupsController < ApplicationController
 
     def current_user_eq_profile
       head :unauthorized unless current_api_v1_user.group_id == params[:id].to_i
+    end
+
+    def set_group_id
+      params[:group][:id] = current_api_v1_user.group_id
     end
 end

@@ -7,7 +7,9 @@ class Api::V1::CartsController < ApplicationController
 
   # GET /api/v1/carts
   def index
-    carts = Cart.where(group_id: current_api_v1_user.group_id)
+    # carts = Cart.where(group_id: current_api_v1_user.group_id)
+    carts = Cart.joins(:item).select('carts.*, 
+      items.name as item_name')
     if carts
       render json: {status: "SUCCESS", message: "Fetched all the carts successfully", data: carts}, status: :ok
     else

@@ -63,7 +63,7 @@ class Api::V1::CriteriaDaysController < ApplicationController
     end
 
     
-  def set_group_id
-    params[:criteria_day][:group_id] = current_api_v1_user.group_id
-  end
+    def set_group_id
+      params[:criteria_day][:group_id] = current_api_v1_user.group_id
+    end
 end

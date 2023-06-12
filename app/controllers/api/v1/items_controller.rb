@@ -4,7 +4,9 @@ class Api::V1::ItemsController < ApplicationController
 
   # GET /api/v1/items
   def index
-    items = Item.all
+    # items = Item.all
+    items = Item.left_outer_joins(:product, :grocery)
+    .select('items.*, products.picture as picture')
     if items
       render json: {status: "SUCCESS", message: "Fetched all the items successfully", data: items}, status: :ok
     else
