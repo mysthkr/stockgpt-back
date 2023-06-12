@@ -28,6 +28,8 @@ class Api::V1::FavoritesController < ApplicationController
 
   # POST /api/v1/favorites
   def create
+    puts "favorite_params"
+    puts favorite_params
     favorite = Favorite.new(favorite_params)
     if favorite.save
       render json: favorite, status: :created, location: api_v1_favorite_url(favorite)
@@ -49,7 +51,8 @@ class Api::V1::FavoritesController < ApplicationController
 
   # DELETE /api/v1/favorites/1
   def destroy
-    favorite = Favorite.find(params[:id])
+    favorite = Favorite.where(params[:id])
+    # favorite = Favorite.where(item_id: params[:id],  group_id: current_api_v1_user.group_id)
     favorite.destroy
 
     render json: { message: 'Favorite successfully deleted.' }

@@ -24,6 +24,9 @@ class Api::V1::StockItemsController < ApplicationController
   # POST /api/v1/stock_items
   def create
     stock_item = StockItem.new(stock_item_params)
+    puts "stock_item yeaaaaaa"
+    puts stock_item_params
+    puts stock_item
     if stock_item.save
       render json: stock_item, status: :created, location: api_v1_stock_item_url(stock_item)
     else

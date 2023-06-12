@@ -42,7 +42,10 @@ items = [
   ["Senzai", 100],
   ["Haburashi", 200],
   ["Shampoo", 300],
-  ["Egg", 7]
+  ["Egg", 7],
+  ["Milk", 8],
+  ["Beef", 4],
+  ["Pork", 3],
 ]
 
 items.each do |name, criteria| 
@@ -102,10 +105,10 @@ end
 
 
 groceries = [
-  [1, 1, 1], 
-  [2, 2, 2], 
-  [3, 3, 2],
-  [1, 1, 1] 
+  [4, 1, 1], 
+  [5, 2, 2], 
+  [6, 3, 2],
+  [7, 1, 1] 
 ]
 
 groceries.each do |item_id, sub_category_grocery_id, category_grocery_id| 
