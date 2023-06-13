@@ -1,14 +1,14 @@
 class Api::V1::FavoritesController < ApplicationController
-  before_action :set_favorite, only: [:show, :update, :destroy]
+  # before_action :set_favorite, only: [:show, :update, :destroy]
   before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :destroy]
   before_action :set_group_id, only: [:create, :update, :destroy]
   before_action -> { ensure_user_index("favorites") }, only: [:index]
-  before_action -> { ensure_user_params_id("favorites") }, only: [:show, :update, :destroy]
+  # before_action -> { ensure_user_params_id("favorites") }, only: [:show, :update, :destroy]
 
   # GET /api/v1/favorites
   def index
-    favorites = Favorite.where(group_id: current_api_v1_user.group_id).joins(:item, item: :product)
-    .select('favorites.*, items.name as item_name, products.*')
+    favorites = Favorite.where(group_id: current_api_v1_user.group_id).joins(:item)
+    .select('favorites.*, items.name as item_name')
     # favorites = Favorite.where(group_id: current_api_v1_user.group_id)
     pp favorites
     puts favorites.to_json
@@ -21,10 +21,10 @@ class Api::V1::FavoritesController < ApplicationController
   end
 
   # GET /api/v1/favorites/1
-  def show
-    favorite = Favorite.where(id: params[:id], group_id: current_api_v1_user.group_id)
-    render json: favorite
-  end
+  # def show
+  #   favorite = Favorite.where(id: params[:id], group_id: current_api_v1_user.group_id)
+  #   render json: favorite
+  # end
 
   # POST /api/v1/favorites
   def create
@@ -39,21 +39,27 @@ class Api::V1::FavoritesController < ApplicationController
   end
 
   # PATCH/PUT /api/v1/favorites/1
-  def update
-    favorite = Favorite.where(id: params[:id], group_id: current_api_v1_user.group_id)
+  # def update
+  #   favorite = Favorite.where(id: params[:id], group_id: current_api_v1_user.group_id)
 
-    if favorite.update(favorite_params)
-      render json: favorite
-    else
-      render json: favorite.errors, status: :bad_request
-    end
-  end
+  #   if favorite.update(favorite_params)
+  #     render json: favorite
+  #   else
+  #     render json: favorite.errors, status: :bad_request
+  #   end
+  # end
 
   # DELETE /api/v1/favorites/1
   def destroy
-    favorite = Favorite.where(params[:id])
-    # favorite = Favorite.where(item_id: params[:id],  group_id: current_api_v1_user.group_id)
-    favorite.destroy
+    puts "params"
+    puts params
+    puts params[:item_id]
+    puts params[:id]
+    # favorite = Favorite.where(params[:id])
+    favorite = Favorite.where(group_id: params[:favorite][:group_id],item_id: params[:id])
+    puts "favorite"
+    pp favorite
+    favorite.destroy_all
 
     render json: { message: 'Favorite successfully deleted.' }
   end
