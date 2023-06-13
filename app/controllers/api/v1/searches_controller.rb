@@ -14,11 +14,20 @@ class Api::V1::SearchesController < ApplicationController
     # POST /api/v1/
     def create
       params ||= JSON.parse(request.body.read, {:symbolize_names => true})
-      puts "params:"
-      puts params
-      search = Grocery.search_word(params[:data])
-      pp search
-      return render json: search
+      # puts "params:"
+      # puts params
+      # puts "gettt"
+      # puts params[:headers][:product_flag]
+      # puts params[:headers][:product_flag].class
+      if params[:headers][:product_flag]
+        search = Product.search_product_word(params[:data])
+        pp search
+        return render json: search
+      else
+        search = Grocery.search_word(params[:data])
+        pp search
+        return render json: search
+      end
       # if invitation.save
       #   render json: search, status: :created, location: api_v1_invitation_url(invitation)
       # else
