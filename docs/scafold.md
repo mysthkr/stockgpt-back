@@ -41,12 +41,16 @@ curl -X POST -H "Content-Type: application/json" -d "{\"email\": \"post@gmail.co
 ログイン
 curl -X POST -H "Content-Type: application/json" -d "{\"email\": \"post@gmail.com\",  \"password\": \"postpass\" }" 10.0.0.11:3000/api/v1/auth/sign_in
 
+
+curl -X POST -H "Content-Type: application/json" -d "{\"email\": \"testform@gmail.com\",  \"password\": \"testform\" }" 10.0.0.11:3000/api/v1/auth/sign_in
+
 →レスポンス
 {"data":{"email":"post@gmail.com","provider":"email","uid":"post@gmail.com","id":1,"admin":false,"business":false,"group_id":1,"allow_password_change":false,"remember_created_on":null}}
 
+
 ログイン　with header
 
-curl -i -X POST -H "Content-Type: application/json" -d "{\"email\": \"post@gmail.com\",  \"password\": \"postpass\" }" 10.0.0.11:3000/api/v1/auth/sign_in
+curl -i -X POST -H "Content-Type: application/json" -d "{\"email\": \"testform@gmail.com\",  \"password\": \"testform\" }" localhost:3010/api/v1/auth/sign_in
 
 →レスポンス
 HTTP/1.1 200 OK
@@ -71,6 +75,9 @@ Transfer-Encoding: chunked
 
 {"data":{"email":"post@gmail.com","provider":"email","uid":"post@gmail.com","id":1,"admin":false,"business":false,"group_id":1,"allow_password_change":false,"remember_created_on":null}}
 
+
+
+curl -i -X GET -H "Content-Type: application/json" -d "{\"uid\": \"testform@gmail.com\",  \"access-token\": \"A5HbIdWVqDypLzP8oUQLog\",  \"client\": \"rHhypFT97yFj84Dj_472WQ\" }" localhost:3010/api/v1/stock_items/alarms
 
 
 
@@ -320,6 +327,8 @@ null test
 curl -X POST -H "Content-Type: application/json" -d "{\"group_id\": 4,\"criteria\": 55,\"item_id\": 4,\"alarm_date\": \"2023-04-05\",  \"shop_id\": 4,  \"discarded_at\": \"2022-05-05T05:05:05\"}" 10.0.0.11:3000/api/v1/stock_items
 
 
+alarms
+curl -i -X GET -H "Content-Type: application/json" -d "{\"uid\": \"testform@gmail.com\",  \"access-token\": \"A5HbIdWVqDypLzP8oUQLog\",  \"client\": \"rHhypFT97yFj84Dj_472WQ\" }" localhost:3010/api/v1/stock_items/alarms
 
 ###request
 rails g scaffold api/v1/request user_id:bigint request_type:integer request_name:string register_flag:boolean

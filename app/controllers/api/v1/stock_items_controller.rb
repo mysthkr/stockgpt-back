@@ -1,13 +1,24 @@
 class Api::V1::StockItemsController < ApplicationController
   before_action :set_stock_item, only: [:show, :update, :destroy]
-  before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy]
-  before_action -> { ensure_user_index("stock_items") }, only: [:index]
-  before_action -> { ensure_user_params_id("stock_items") }, only: [:show, :update, :destroy]
+  # before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy]
+  # before_action -> { ensure_user_index("stock_items") }, only: [:index]
+  # before_action -> { ensure_user_params_id("stock_items") }, only: [:show, :update, :destroy]
   before_action :set_group_id, only: [:create, :update, :destroy]
+  require "date"
 
   # GET /api/v1/stock_items
   def index
     stock_items = StockItem.where(group_id: current_api_v1_user.group_id)
+    if stock_items
+      render json: {status: "SUCCESS", message: "Fetched all the stock_items successfully", data: stock_items}, status: :ok
+    else
+      render json: stock_items.errors, status: :bad_request
+    end
+  end
+
+  # GET /api/v1/stock_items/alarm
+  def alarms
+    stock_items = StockItem.where(group_id: current_api_v1_user.group_id, alarm_date: ..Date.today)
     if stock_items
       render json: {status: "SUCCESS", message: "Fetched all the stock_items successfully", data: stock_items}, status: :ok
     else
