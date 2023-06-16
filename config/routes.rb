@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :requests
       resources :stock_items do
         get "alarms", on: :collection
+        get "recipes", on: :collection
       end
       resources :sub_category_groceries
       resources :sub_category_products
