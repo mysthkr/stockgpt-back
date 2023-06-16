@@ -8,4 +8,7 @@ class Product < ApplicationRecord
   validates :sub_category_product_id, presence: true
   validates :category_product_id, presence: true
   # validates :maker_id, presence: true
+
+  scope :search_product_word,  -> (word){ Product.joins(:item).where("items.name LIKE ?", "%#{word}%")
+  .select('products.*, items.name as item_name') }
 end

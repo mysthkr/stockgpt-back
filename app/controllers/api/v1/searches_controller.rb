@@ -13,17 +13,27 @@ class Api::V1::SearchesController < ApplicationController
   
     # POST /api/v1/
     def create
+      response.headers['uid'] = params[:headers]['uid']
+      response.headers['client'] = params[:headers]['client']
+      response.headers['access-token'] = params[:headers]['access-token']
+
       params ||= JSON.parse(request.body.read, {:symbolize_names => true})
-      puts "params:"
-      puts params
-      search = Grocery.search_word(params[:data])
-      pp search
-      return render json: search
-      # if invitation.save
-      #   render json: search, status: :created, location: api_v1_invitation_url(invitation)
-      # else
-      #   render json: invitation.errors, status: :bad_request
-      # end
+
+      if params[:headers][:product_flag]
+        search = Product.search_product_word(params[:data])
+        pp search
+        pp "search.as_json"
+        pp render json: search.as_json
+        render json: search.as_json, status: :ok, headers: response.headers
+
+      else
+        search = Grocery.search_word(params[:data])
+        pp search
+        render json: search.as_json, status: :ok, headers: response.headers
+      end
+
+      puts "Search results"
+      puts json: search.as_json, status: :ok, headers: response.headers
     end
 
     private

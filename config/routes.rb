@@ -10,7 +10,9 @@ Rails.application.routes.draw do
       resources :carts
       resources :to_buy_lists
       resources :requests
-      resources :stock_items
+      resources :stock_items do
+        get "alarms", on: :collection
+      end
       resources :sub_category_groceries
       resources :sub_category_products
       resources :products
