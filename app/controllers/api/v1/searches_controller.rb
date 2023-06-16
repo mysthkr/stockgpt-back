@@ -13,6 +13,10 @@ class Api::V1::SearchesController < ApplicationController
   
     # POST /api/v1/
     def create
+      response.headers['uid'] = params[:headers]['uid']
+      response.headers['client'] = params[:headers]['client']
+      response.headers['access-token'] = params[:headers]['access-token']
+
       params ||= JSON.parse(request.body.read, {:symbolize_names => true})
 
       if params[:headers][:product_flag]
@@ -20,14 +24,16 @@ class Api::V1::SearchesController < ApplicationController
         pp search
         pp "search.as_json"
         pp render json: search.as_json
-        render json: search.as_json, status: :ok
+        render json: search.as_json, status: :ok, headers: response.headers
 
       else
         search = Grocery.search_word(params[:data])
         pp search
-        render json: search.as_json, status: :ok
+        render json: search.as_json, status: :ok, headers: response.headers
       end
 
+      puts "Search results"
+      puts json: search.as_json, status: :ok, headers: response.headers
     end
 
     private
