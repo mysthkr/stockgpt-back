@@ -7,8 +7,9 @@
 - Ruby on Rails 6.1.7.2
 
 #### フロントエンド
-- Typescript 
-- React
+- Typescript 5.0.4
+- React 18.2.0
+- Next.js 13.4.4
 
 #### インフラ
 - AWS EC2
@@ -21,7 +22,7 @@
 - devise
 
 ## カリキュラム外の技術
-React
+React,Next.js,Typescript,Docker
 
 ## アプリケーションの実行手順
 ```
