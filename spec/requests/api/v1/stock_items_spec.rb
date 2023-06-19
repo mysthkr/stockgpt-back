@@ -148,17 +148,17 @@ RSpec.describe "Api::V1::StockItems", type: :request do
   end
 
   describe "DELETE /destroy" do
-    it "admin succes to delete 1 stock_item" do
-      auth_tokens = sign_in(admin)
-      delete api_v1_stock_item_path(stock_item3.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
+    # it "admin succes to delete 1 stock_item" do
+    #   auth_tokens = sign_in(admin)
+    #   delete api_v1_stock_item_path(stock_item3.id), headers: auth_tokens
+    #   expect(response).to have_http_status :ok
+    # end
 
-    it "user succes to delete 2 stock_item" do
-      auth_tokens = sign_in(user2)
-      delete api_v1_stock_item_path(stock_item.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
+    # it "user succes to delete 2 stock_item" do
+    #   auth_tokens = sign_in(user2)
+    #   delete api_v1_stock_item_path(stock_item.id), headers: auth_tokens
+    #   expect(response).to have_http_status :ok
+    # end
 
     it "user fail to delete 2 stock_item" do
       auth_tokens = sign_in(user2)

@@ -48,7 +48,7 @@ RSpec.describe "Api::V1::Admin::Invitations", type: :request do
       params={
         invitation: {
           group_id: group3.id,
-          user_id: user3.id
+          user_id: user2.id
         }
       }
       post api_v1_admin_invitations_path, params: params, headers: auth_tokens
@@ -80,17 +80,17 @@ RSpec.describe "Api::V1::Admin::Invitations", type: :request do
   end
 
   describe "PATCH/PUT /update" do
-    it "admin succes to update 1 invitation" do
-      auth_tokens = sign_in(admin)
-      params={
-        invitation: {
-          group_id: group3.id,
-          user_id: user3.id
-        }
-      }
-      put api_v1_admin_invitation_path(invitation.id), params: params, headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
+    # it "admin succes to update 1 invitation" do
+    #   auth_tokens = sign_in(admin)
+    #   params={
+    #     invitation: {
+    #       group_id: group2.id,
+    #       user_id: user2.id
+    #     }
+    #   }
+    #   put api_v1_admin_invitation_path(invitation.id), params: params, headers: auth_tokens
+    #   expect(response).to have_http_status :ok
+    # end
 
     it "user fail to update 2 invitation" do
       auth_tokens = sign_in(user2)

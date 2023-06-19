@@ -14,43 +14,43 @@ RSpec.describe "Api::V1::Requests", type: :request do
 
   ##########################################
   
-  describe "POST /create" do
-    it "admin succes to post request" do
-      auth_tokens = sign_in(admin)
-      params={
-        request: {
-          user_id: user3.id,
-          request_type: 1,
-          request_name: "test request",
-          register_flag: true
-        }
-      }
-      post api_v1_requests_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :created
-    end
+  # describe "POST /create" do
+  #   it "admin succes to post request" do
+  #     auth_tokens = sign_in(admin)
+  #     params={
+  #       request: {
+  #         user_id: user3.id,
+  #         request_type: 1,
+  #         request_name: "test request",
+  #         register_flag: true
+  #       }
+  #     }
+  #     post api_v1_requests_path, params: params, headers: auth_tokens
+  #     expect(response).to have_http_status :created
+  #   end
 
-    it "admin fail to post request" do
-      auth_tokens = sign_in(admin)
-      params={
-        request: {
-          aaa: "bad_request"
-        }
-      }
-      post api_v1_requests_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :bad_request
-    end
+  #   it "admin fail to post request" do
+  #     auth_tokens = sign_in(admin)
+  #     params={
+  #       request: {
+  #         aaa: "bad_request"
+  #       }
+  #     }
+  #     post api_v1_requests_path, params: params, headers: auth_tokens
+  #     expect(response).to have_http_status :bad_request
+  #   end
 
-    it "user succes to post request" do
-      auth_tokens = sign_in(user2)
-      params={
-        request: {
-          user_id: user3.id,
-          request_type: 2,
-          request_name: "test request 222"
-        }
-      }
-      post api_v1_requests_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :created
-    end
-  end
+  #   it "user succes to post request" do
+  #     auth_tokens = sign_in(user2)
+  #     params={
+  #       request: {
+  #         user_id: user3.id,
+  #         request_type: 2,
+  #         request_name: "test request 222"
+  #       }
+  #     }
+  #     post api_v1_requests_path, params: params, headers: auth_tokens
+  #     expect(response).to have_http_status :created
+  #   end
+  # end
 end

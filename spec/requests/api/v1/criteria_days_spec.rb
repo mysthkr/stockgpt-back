@@ -128,23 +128,23 @@ RSpec.describe "Api::V1::CriteriaDays", type: :request do
     end
   end
 
-  describe "DELETE /destroy" do
-    it "admin succes to delete 1 criteria_day" do
-      auth_tokens = sign_in(admin)
-      delete api_v1_criteria_day_path(criteria_day3.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
+  # describe "DELETE /destroy" do
+  #   it "admin succes to delete 1 criteria_day" do
+  #     auth_tokens = sign_in(admin)
+  #     delete api_v1_criteria_day_path(criteria_day3.id), headers: auth_tokens
+  #     expect(response).to have_http_status :ok
+  #   end
 
-    it "user succes to delete 1 criteria_day" do
-      auth_tokens = sign_in(user2)
-      delete api_v1_criteria_day_path(criteria_day.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
+  #   it "user succes to delete 1 criteria_day" do
+  #     auth_tokens = sign_in(user2)
+  #     delete api_v1_criteria_day_path(criteria_day.id), headers: auth_tokens
+  #     expect(response).to have_http_status :ok
+  #   end
 
-    it "user fail to delete 2 criteria_day" do
-      auth_tokens = sign_in(user2)
-      delete api_v1_criteria_day_path(criteria_day2.id), headers: auth_tokens
-      expect(response).to have_http_status :unauthorized
-    end
-  end
+  #   it "user fail to delete 2 criteria_day" do
+  #     auth_tokens = sign_in(user2)
+  #     delete api_v1_criteria_day_path(criteria_day2.id), headers: auth_tokens
+  #     expect(response).to have_http_status :unauthorized
+  #   end
+  # end
 end

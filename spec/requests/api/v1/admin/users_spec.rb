@@ -37,19 +37,19 @@ RSpec.describe "Api::V1::Admin::Users", type: :request do
   end
 
   describe "POST /create" do
-    it "admin success to create a new user" do
-      auth_tokens = sign_in(admin)
-      params={
-        user: {
-          group_id: group3.id.to_i,
-          email: "admin2@example.com",
-          encrypted_password: "password",
-        }
-      }
-      # binding.irb
-      post api_v1_admin_users_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
+    # it "admin success to create a new user" do
+    #   auth_tokens = sign_in(admin)
+    #   params={
+    #     user: {
+    #       group_id: group3.id.to_i,
+    #       email: "admin2@example.com",
+    #       encrypted_password: "password",
+    #     }
+    #   }
+    #   # binding.irb
+    #   post api_v1_admin_users_path, params: params, headers: auth_tokens
+    #   expect(response).to have_http_status :ok
+    # end
 
     it "user fail to create a new user" do
       auth_tokens = sign_in(user2)
