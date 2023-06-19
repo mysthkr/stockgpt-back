@@ -1,0 +1,92 @@
+version: '3'
+services:
+  db:
+    image: postgres:14
+    # データの永続化の為に使用
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - dbvolume:/var/lib/postgresql/data
+    env_file: ./back/.env
+    ports:
+      - '5432:5432'
+  api:
+    build: ./back/
+    command: bundle exec puma -C config/puma.rb
+    # command: bundle exec puma -C config/puma.rb -e production
+    volumes:
+      - ./back/api
+      - gem_data:/usr/local/bundle
+      - public-data:/api/public
+      - tmp-data:/api/tmp
+      - log-data:/api/log
+    ports:
+      - '3010:3010'
+    # コンテナの立ち上げ順と依存関係を指定。dbコンテナが立ち上がってからwebコンテナが立ち上がるようにする。
+    depends_on:
+      - db
+    env_file: ./back/.env
+    # stdin_open, ttyは`pry-byebug`を使用するために記述
+    tty: true
+    stdin_open: true
+    # command: bundle exec puma -C config/puma.rb
+    # command: bundle exec puma -C config/puma.rb -e production
+    # command: /bin/sh -c "rm -f tmp/pids/server.pid && rails server -p 3010"
+    # command: /bin/sh -c "rm -f tmp/pids/server.pid && rails server -p 3010 -b '0.0.0.0'"
+    environment:
+      - ./back/.env
+      - RAILS_ENV=development
+      - APP_DEFAULT_URL_HOST=localhost
+      - APP_DEFAULT_URL_PORT=3010
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+
+    restart: always # コンテナが停止すると常に再起動
+  front:
+    build: ./front/
+    volumes:
+      # - ./front/app:/front
+      - ./front/src:/front
+    ports:
+      - 3000:3000
+    tty: true
+    stdin_open: true
+    
+
+
+  # web:
+  #   container_name: web
+  #   image: nginx:latest
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+  #     - public-data:/api/public
+  #     - tmp-data:/api/tmp
+  #   ports:
+  #     - '80:80'
+  #   depends_on:
+  #     - app
+volumes:
+  dbvolume:
+  gem_data:
+  public-data:
+  tmp-data:
+  log-data:
+  # postgres_volume:
+# version: '3'
+# services:
+#   front:
+#     build:
+#       context: .
+#     ports:
+#       - "3010:3010"
+#     volumes:
+#       - .:/app
+#       - /app/node_modules
+#     command: npm run dev
+#     networks:
+#       - default
+#       - stockgpt_default
+# networks:
+#   stockgpt_default:
+#     external: true
