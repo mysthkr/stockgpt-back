@@ -1,6 +1,6 @@
 class Api::V1::ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :update, :destroy]
-  # before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy]
+  before_action :authenticate_api_v1_user! , only: [:index, :show, :update, :destroy]
   before_action :current_user_eq_profile, only: [:show, :update, :destroy]
 
   # GET /api/v1/profiles
@@ -16,7 +16,8 @@ class Api::V1::ProfilesController < ApplicationController
 
   # GET /api/v1/profiles/1
   def show
-    profile = Profile.where(user_id: current_api_v1_user.id)
+    profile = Profile.joins(:user, user: :group).where(user_id: current_api_v1_user.id)
+    .select('profiles.*, users.email as email, groups.name as group_name')
     render json: profile
   end
 

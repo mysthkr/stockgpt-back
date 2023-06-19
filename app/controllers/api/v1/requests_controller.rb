@@ -1,11 +1,12 @@
 class Api::V1::RequestsController < ApplicationController
   # before_action :set_request, only: [:show, :update, :destroy]
-  before_action :authenticate_api_v1_user! , only: [:create]
-  before_action :set_userid, only: [:create]
+  # before_action :authenticate_api_v1_user! , only: [:create]
+  # before_action :set_userid, only: [:create]
 
   # POST /api/v1/requests
   def create
-    request = Request.new(request_params)
+    request = Request.new(request_type: params[:data][:request_type], 
+      request_name: params[:data][:request_name], user_id: params[:data][:user_id])
     if request.save
       render json: request, status: :created, location: api_v1_request_url(request)
     else
@@ -25,7 +26,7 @@ class Api::V1::RequestsController < ApplicationController
     end
 
     
-  def set_userid
-    params[:user][:id] = current_api_v1_user.id
-  end
+    def set_userid
+      params[:request][:user_id] = current_api_v1_user.id
+    end
 end
