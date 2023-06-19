@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :items
-      resources :invitations, except: [:index]
+      resources :invitations
       resources :favorites
       resources :shops
       resources :criteria_days
@@ -20,7 +20,10 @@ Rails.application.routes.draw do
       resources :groceries
       resources :groups, except: [:index]
       resources :profiles
-      resources :users
+      resources :users do
+        put "change_group", on: :collection
+        put "approve_group", on: :collection
+      end
       resources :category_products
       resources :category_groceries
       post 'searches', to: 'searches#create'

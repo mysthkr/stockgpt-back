@@ -6,6 +6,15 @@ class Api::V1::InvitationsController < ApplicationController
   before_action :set_group_id, only: [:create, :update, :destroy]
 
   # GET /api/v1/invitations/1
+  def index
+    invitation = Invitation.joins(:group).where(user_id: current_api_v1_user.id)
+    .select('invitations.*, groups.name as group_name')
+    puts "invitationsssssssss"
+    pp invitation
+    render json: invitation
+  end
+
+  # GET /api/v1/invitations/1
   def show
     invitation = Invitation.where(id: params[:id], group_id: current_api_v1_user.group_id)
     render json: invitation
@@ -13,7 +22,13 @@ class Api::V1::InvitationsController < ApplicationController
 
   # POST /api/v1/invitations
   def create
-    invitation = Invitation.new(invitation_params)
+    email = params[:email]
+    group_id = params[:group_id]
+    inviting_user_id = params[:user_id]
+    invited_user = User.where(email: email).first
+    pp invited_user
+    invitation = Invitation.new(group_id: group_id, user_id: invited_user.id)
+    pp invitation
     if invitation.save
       render json: invitation, status: :created, location: api_v1_invitation_url(invitation)
     else

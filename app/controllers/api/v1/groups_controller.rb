@@ -16,9 +16,10 @@ class Api::V1::GroupsController < ApplicationController
 
   # GET /api/v1/groups/1
   def show
-    group = Group.find(current_api_v1_user.group_id)
-    # group = Group.find(params[:id])
-    render json: group
+    group = Group.includes(users: :profile).find(current_api_v1_user.group_id)
+    user_data = group.users.map { |user| { id: user.id, name: user.profile.name } }
+    pp json: { group: group, user_data: user_data }
+    render json: { group: group, user_data: user_data }
   end
 
   # POST /api/v1/groups

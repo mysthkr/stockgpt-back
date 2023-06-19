@@ -1,9 +1,9 @@
 class Api::V1::StockItemsController < ApplicationController
   before_action :set_stock_item, only: [:show, :update, :destroy]
-  # before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy]
-  # before_action -> { ensure_user_index("stock_items") }, only: [:index]
-  # before_action -> { ensure_user_params_id("stock_items") }, only: [:show, :update, :destroy]
-  before_action :set_group_id, only: [:create, :update, :destroy]
+  before_action :authenticate_api_v1_user! , only: [:index, :show, :create, :update, :destroy, :alarms]
+  before_action -> { ensure_user_index("stock_items") }, only: [:index]
+  before_action -> { ensure_user_params_id("stock_items") }, only: [:show, :update, :destroy]
+  before_action :set_group_id, only: [:create, :update, :destroy, :alarms]
   require "date"
 
   # GET /api/v1/stock_items
@@ -43,15 +43,13 @@ class Api::V1::StockItemsController < ApplicationController
 
   # puts ENV['OPENAI_API_KEY']
   def recipes
-    puts "ppppppppppppppppp"
-    puts params[:headers]
+
 
     stock_items = StockItem.joins(:item, item: :grocery)
     .where(group_id: current_api_v1_user.group_id, alarm_date: ..Date.today)
     .select('stock_items.*, items.name as item_name')
 
-    puts "stock_items"
-    pp stock_items
+
 
     if stock_items
       puts "stock_items"
@@ -73,19 +71,15 @@ class Api::V1::StockItemsController < ApplicationController
             {role: "system", content: "あなたが利用されるシステムからは、食材の情報しか与えられないため、
               ユーザーは細かくあなたに依頼ができないシチュエーションです。"},
             {role: "system", content: "可能であれば、健康を意識したり、はたまた旬の食材を扱ったレシピも考案します。"},
-            {role: "system", content: "提案する料理は日本の料理だけでなく、全国の日本人が好きそうな料理のレシピです。"},
+            {role: "system", content: "提案する料理は日本の料理だけでなく、日本人が好きそうな全世界の料理のレシピです。"},
             {role: "system", content: "提案するレシピは基本1つ、食材が多い場合には2つまで提案してください"},
+            {role: "system", content: "２つレシピを提案する場合は、可能であればジャンルが違うものを提案してください。"},
             {role: "user", content: "これらの食材を出来るだけ使った、美味しい料理のレシピを分かりやすく日本語で教えてください。"},
             {role: "user", content: "食材: #{stock_items.map{|i| i.item_name}.join(", ")}"},
           ],
         },
       )
-      puts "texttttttttttttttttttt"
       text = res["choices"][0]["message"]["content"]
-      # response.headers['uid'] = params[:headers]['uid']
-      # response.headers['client'] = params[:headers]['client']
-      # response.headers['access-token'] = params[:headers]['access-token']
-      puts text
       render json: { recipe: text }, status: :ok
     else
       render json: stock_items.errors, status: :bad_request
@@ -128,7 +122,7 @@ class Api::V1::StockItemsController < ApplicationController
 
   # DELETE /api/v1/stock_items/1
   def destroy
-    stock_item = StockItem.find(params[:id])
+    stock_item = StockItem.find(params[:id], group_id: current_api_v1_user.group_id)
     stock_item.destroy
 
     render json: { message: 'StockItem successfully deleted.' }

@@ -8,8 +8,21 @@ class Api::V1::CartsController < ApplicationController
   # GET /api/v1/carts
   def index
     # carts = Cart.where(group_id: current_api_v1_user.group_id)
-    carts = Cart.joins(:item).select('carts.*, 
-      items.name as item_name')
+    carts = Cart.joins(:item)
+    .left_outer_joins(item: [{ product: [:category_product, :sub_category_product] },
+      { grocery: [:category_grocery, :sub_category_grocery] }])
+      .where(group_id: current_api_v1_user.group_id)
+      .select('carts.*, items.name as item_name, products.picture as product_picture,
+              category_products.name as category_product_name, 
+              sub_category_products.name as sub_category_product_name, 
+              category_groceries.name as category_grocery_name, 
+              sub_category_groceries.name as sub_category_grocery_name')
+      .distinct('carts.id')
+
+    # .select('carts.*, 
+    #   items.name as item_name')
+    puts "yeaaaaaaaaaaaaaaaaa"
+    pp carts
     if carts
       render json: {status: "SUCCESS", message: "Fetched all the carts successfully", data: carts}, status: :ok
     else
