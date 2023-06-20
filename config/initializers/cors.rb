@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:3000', "https://web.stock-gpt-m.com", "http://stock-gpt-m.com", 'http://stock-gpt_front_1:3000','http://172.16.0.3:3000'
+    origins 'http://localhost:3000', "https://web.stock-gpt-m.com", "http://stock-gpt-m.com", 'http://stock-gpt_front_1:3000','http://172.22.0.3:3000','http://ec2-user-front-1:3000','http://52.195.64.253:3000'
 
     resource '*',
       headers: :any,
