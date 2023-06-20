@@ -141,5 +141,6 @@ class Api::V1::StockItemsController < ApplicationController
 
     def set_group_id
       params[:stock_item][:group_id] = current_api_v1_user.group_id
+      
     end
 end
