@@ -7,7 +7,8 @@ class Api::V1::ToBuyListsController < ApplicationController
 
   # GET /api/v1/to_buy_lists
   def index
-    to_buy_lists = ToBuyList.where(group_id: current_api_v1_user.group_id)
+    to_buy_lists = ToBuyList.joins(:item).where(group_id: current_api_v1_user.group_id)
+    .select('to_buy_lists.*, items.name as item_name, items.id as item_id')
     if to_buy_lists
       render json: {status: "SUCCESS", message: "Fetched all the to_buy_lists successfully", data: to_buy_lists}, status: :ok
     else

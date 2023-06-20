@@ -24,6 +24,10 @@ class Api::V1::CriteriaDaysController < ApplicationController
   # POST /api/v1/criteria_days
   def create
     criteria_day = CriteriaDay.new(criteria_day_params)
+    existing = CriteriaDay.where(item_id: criteria_day_params[:item_id], group_id: current_api_v1_user.group_id)
+    if existing
+      existing.destroy_all
+    end
     if criteria_day.save
       render json: criteria_day, status: :created, location: api_v1_criteria_day_url(criteria_day)
     else

@@ -4,4 +4,5 @@ class Favorite < ApplicationRecord
 
   validates :group_id, presence: true
   validates :item_id, presence: true
+  validates :group_id, uniqueness: { scope: :item_id }
 end

@@ -122,8 +122,8 @@ class Api::V1::StockItemsController < ApplicationController
 
   # DELETE /api/v1/stock_items/1
   def destroy
-    stock_item = StockItem.find(params[:id], group_id: current_api_v1_user.group_id)
-    stock_item.destroy
+    stock_item = StockItem.where(id: params[:id], group_id: current_api_v1_user.group_id)
+    stock_item.first.destroy
 
     render json: { message: 'StockItem successfully deleted.' }
   end
