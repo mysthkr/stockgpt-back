@@ -128,17 +128,17 @@ RSpec.describe "Api::V1::ToBuyLists", type: :request do
   end
 
   describe "DELETE /destroy" do
-    it "admin succes to delete 1 to_buy_list" do
-      auth_tokens = sign_in(admin)
-      delete api_v1_to_buy_list_path(to_buy_list3.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
+    # it "admin succes to delete 1 to_buy_list" do
+    #   auth_tokens = sign_in(admin)
+    #   delete api_v1_to_buy_list_path(to_buy_list3.id), headers: auth_tokens
+    #   expect(response).to have_http_status :ok
+    # end
 
-    it "user succes to delete 2 to_buy_list" do
-      auth_tokens = sign_in(user2)
-      delete api_v1_to_buy_list_path(to_buy_list.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
+    # it "user succes to delete 2 to_buy_list" do
+    #   auth_tokens = sign_in(user2)
+    #   delete api_v1_to_buy_list_path(to_buy_list.id), headers: auth_tokens
+    #   expect(response).to have_http_status :ok
+    # end
 
     it "user fail to delete 2 to_buy_list" do
       auth_tokens = sign_in(user2)

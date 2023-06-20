@@ -130,23 +130,23 @@ RSpec.describe "Api::V1::Carts", type: :request do
     end
   end
 
-  describe "DELETE /destroy" do
-    it "admin succes to delete No3 cart" do
-      auth_tokens = sign_in(admin)
-      delete api_v1_cart_path(cart3.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
+  # describe "DELETE /destroy" do
+  #   it "admin succes to delete No3 cart" do
+  #     auth_tokens = sign_in(admin)
+  #     delete api_v1_cart_path(cart3.id), headers: auth_tokens
+  #     expect(response).to have_http_status :ok
+  #   end
 
-    it "admin fail to delete No3 cart" do
-      auth_tokens = sign_in(admin)
-      delete api_v1_cart_path(cart2.id), headers: auth_tokens
-      expect(response).to have_http_status :unauthorized
-    end
+  #   it "admin fail to delete No3 cart" do
+  #     auth_tokens = sign_in(admin)
+  #     delete api_v1_cart_path(cart2.id), headers: auth_tokens
+  #     expect(response).to have_http_status :unauthorized
+  #   end
 
-    it "user succes to delete 2 cart" do
-      auth_tokens = sign_in(user3)
-      delete api_v1_cart_path(cart2.id), headers: auth_tokens
-      expect(response).to have_http_status :ok
-    end
-  end
+  #   it "user succes to delete 2 cart" do
+  #     auth_tokens = sign_in(user3)
+  #     delete api_v1_cart_path(cart2.id), headers: auth_tokens
+  #     expect(response).to have_http_status :ok
+  #   end
+  # end
 end

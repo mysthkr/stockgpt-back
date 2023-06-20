@@ -7,8 +7,17 @@ class Api::V1::FavoritesController < ApplicationController
 
   # GET /api/v1/favorites
   def index
-    favorites = Favorite.where(group_id: current_api_v1_user.group_id).joins(:item)
-    .select('favorites.*, items.name as item_name')
+    favorites = Favorite
+    .joins(:item)
+    .left_outer_joins(item: [{ product: [:category_product, :sub_category_product] },
+      { grocery: [:category_grocery, :sub_category_grocery] }])
+    .where(group_id: current_api_v1_user.group_id)
+    .select('favorites.*,  items.name as item_name, products.picture as product_picture,
+      category_products.name as category_product_name, 
+      sub_category_products.name as sub_category_product_name, 
+      category_groceries.name as category_grocery_name, 
+      sub_category_groceries.name as sub_category_grocery_name')
+    .distinct('favorites.id')
     # favorites = Favorite.where(group_id: current_api_v1_user.group_id)
     pp favorites
     puts favorites.to_json
