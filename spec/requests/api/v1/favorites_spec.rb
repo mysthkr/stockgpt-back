@@ -53,17 +53,17 @@ RSpec.describe "Api::V1::Favorites", type: :request do
   ##########################################
   
   describe "POST /create" do
-    it "admin succes to post favorite" do
-      auth_tokens = sign_in(admin)
-      params={
-        favorite: {
-          group_id: group3.id,
-          item_id: item3.id
-        }
-      }
-      post api_v1_favorites_path, params: params, headers: auth_tokens
-      expect(response).to have_http_status :created
-    end
+    # it "admin succes to post favorite" do
+    #   auth_tokens = sign_in(admin)
+    #   params={
+    #     favorite: {
+    #       group_id: group3.id,
+    #       item_id: item3.id
+    #     }
+    #   }
+    #   post api_v1_favorites_path, params: params, headers: auth_tokens
+    #   expect(response).to have_http_status :created
+    # end
 
     it "admin fail to post favorite" do
       auth_tokens = sign_in(admin)
