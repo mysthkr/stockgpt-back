@@ -34,7 +34,6 @@ class Api::V1::ProfilesController < ApplicationController
   # PATCH/PUT /api/v1/profiles/1
   def update
     profile = Profile.where(user_id: current_api_v1_user.id)
-
     if profile.update(profile_params)
       render json: profile
     else
@@ -58,7 +57,7 @@ class Api::V1::ProfilesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def profile_params
-      params.require(:profile).permit(:profile_id, :name, :nickname, :roommate_number, :prefecture, :user_id)
+      params.require(:profile).permit(:name, :nickname, :roommate_number, :prefecture, :user_id, :id)
     end
 
     def current_user_eq_profile
